@@ -96,8 +96,8 @@
                             {{ in_array('tahun_memulai_usaha', session('requiredFields', [])) ? 'required' : '' }}>
                     </div>
                     <div class="justify-content-between">
-                        <button type="submit" class="btn btn-primary btn-block">Button</button>
-                        <button type="button" class="btn btn-secondary btn-block">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+                        <a type="button" href="{{route('adm.org.index')}}" class="btn btn-secondary btn-block">Batal</a>
                     </div>
                 </div>
             </form>

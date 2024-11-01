@@ -93,8 +93,8 @@
                         {{ in_array('tahun_memulai_usaha', session('requiredFields', [])) && $errors->has('tahun_memulai_usaha') ? 'required' : '' }}>
                     </div>
                     <div class="justify-content-between">
-                        <button type="submit" class="btn btn-primary btn-block">Button</button>
-                        <button type="button" class="btn btn-secondary btn-block">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+                        <a href="{{route('adm.org.index')}}" type="button" class="btn btn-secondary btn-block">Batal</a>
                     </div>
                 </div>
             </form>
