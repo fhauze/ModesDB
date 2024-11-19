@@ -42,83 +42,84 @@
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="{{ url('assets/css/dashforge.css')}}">
     <link rel="stylesheet" href="{{ url('assets/css/dashforge.auth.css')}}">
+    <style type="text/css">
+      .cardimage {
+        width: 600px;
+        height: 500px;
+        border: none;
+        border-radius: 10px;
+        background: radial-gradient(ellipse farthest-side at 76% 77%, rgba(245, 228, 212, 0.25) 4%, rgba(255, 255, 255, 0) calc(4% + 1px)), radial-gradient(circle at 76% 40%, #fef6ec 4%, rgba(255, 255, 255, 0) 4.18%), linear-gradient(135deg, #ff0000 0%, #000036 100%), radial-gradient(ellipse at 28% 0%, #ffcfac 0%, rgba(98, 149, 144, 0.5) 100%), linear-gradient(180deg, #cd6e8a 0%, #f5eab0 69%, #d6c8a2 70%, #a2758d 100%);
+        background-blend-mode: normal, normal, screen, overlay, normal;
+        box-shadow: 0px 0px 10px 1px #000000;
+      }
+      .cardimage {
+        width: 24rem;
+        height: 36rem;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        color: $color-primary-white;
+        box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
+      
+        img {
+          position: absolute;
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          opacity: 0.9;
+          transition: opacity .2s ease-out;
+        }
+
+        h2 {
+          position: absolute;
+          inset: auto auto 30px 30px;
+          margin: 0;
+          transition: inset .3s .3s ease-out;
+          font-family: 'Roboto Condensed', sans-serif;
+          font-weight: normal;
+          text-transform: uppercase;
+        }
+        
+        p, a {
+          position: absolute;
+          opacity: 0;
+          max-width: 80%;
+          transition: opacity .3s ease-out;
+        }
+        
+        p {
+          inset: auto auto 80px 30px;
+        }
+        
+        a {
+          inset: auto auto 40px 30px;
+          color: inherit;
+          text-decoration: none;
+        }
+        
+        &:hover h2 {
+          inset: auto auto 220px 30px;
+          transition: inset .3s ease-out;
+        }
+        
+        &:hover p, &:hover a {
+          opacity: 1;
+          transition: opacity .5s .1s ease-in;
+        }
+        
+        &:hover img {
+          transition: opacity .3s ease-in;
+          opacity: 1;
+        }
+
+      }
+
+    </style>
   </head>
   <body>
-
-    <header class="navbar navbar-header navbar-header-fixed">
-      <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
-      <div class="navbar-brand">
-        <a href="../../index.html" class="df-logo">dash<span>forge</span></a>
-      </div><!-- navbar-brand -->
-      <div id="navbarMenu" class="navbar-menu-wrapper">
-        <div class="navbar-menu-header">
-          <a href="../../index.html" class="df-logo">dash<span>forge</span></a>
-          <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
-        </div><!-- navbar-menu-header -->
-        <ul class="nav navbar-menu">
-          <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
-          <li class="nav-item with-sub">
-            <a href="" class="nav-link"><i data-feather="pie-chart"></i> Dashboard</a>
-            <ul class="navbar-menu-sub">
-              <li class="nav-sub-item"><a href="dashboard-one.html" class="nav-sub-link"><i data-feather="bar-chart-2"></i>Sales Monitoring</a></li>
-              <li class="nav-sub-item"><a href="dashboard-two.html" class="nav-sub-link"><i data-feather="bar-chart-2"></i>Website Analytics</a></li>
-              <li class="nav-sub-item"><a href="dashboard-three.html" class="nav-sub-link"><i data-feather="bar-chart-2"></i>Cryptocurrency</a></li>
-              <li class="nav-sub-item"><a href="dashboard-four.html" class="nav-sub-link"><i data-feather="bar-chart-2"></i>Helpdesk Management</a></li>
-            </ul>
-          </li>
-          <li class="nav-item with-sub">
-            <a href="" class="nav-link"><i data-feather="package"></i> Apps</a>
-            <ul class="navbar-menu-sub">
-              <li class="nav-sub-item"><a href="app-calendar.html" class="nav-sub-link"><i data-feather="calendar"></i>Calendar</a></li>
-              <li class="nav-sub-item"><a href="app-chat.html" class="nav-sub-link"><i data-feather="message-square"></i>Chat</a></li>
-              <li class="nav-sub-item"><a href="app-contacts.html" class="nav-sub-link"><i data-feather="users"></i>Contacts</a></li>
-              <li class="nav-sub-item"><a href="app-file-manager.html" class="nav-sub-link"><i data-feather="file-text"></i>File Manager</a></li>
-              <li class="nav-sub-item"><a href="app-mail.html" class="nav-sub-link"><i data-feather="mail"></i>Mail</a></li>
-            </ul>
-          </li>
-          <li class="nav-item with-sub">
-            <a href="" class="nav-link"><i data-feather="layers"></i> Pages</a>
-            <div class="navbar-menu-sub">
-              <div class="d-lg-flex">
-                <ul>
-                  <li class="nav-label">Authentication</li>
-                  <li class="nav-sub-item"><a href="page-signin.html" class="nav-sub-link"><i data-feather="log-in"></i> Sign In</a></li>
-                  <li class="nav-sub-item"><a href="page-signup.html" class="nav-sub-link"><i data-feather="user-plus"></i> Sign Up</a></li>
-                  <li class="nav-sub-item"><a href="page-verify.html" class="nav-sub-link"><i data-feather="user-check"></i> Verify Account</a></li>
-                  <li class="nav-sub-item"><a href="page-forgot.html" class="nav-sub-link"><i data-feather="shield-off"></i> Forgot Password</a></li>
-                  <li class="nav-label mg-t-20">User Pages</li>
-                  <li class="nav-sub-item"><a href="page-profile-view.html" class="nav-sub-link"><i data-feather="user"></i> View Profile</a></li>
-                  <li class="nav-sub-item"><a href="page-connections.html" class="nav-sub-link"><i data-feather="users"></i> Connections</a></li>
-                  <li class="nav-sub-item"><a href="page-groups.html" class="nav-sub-link"><i data-feather="users"></i> Groups</a></li>
-                  <li class="nav-sub-item"><a href="page-events.html" class="nav-sub-link"><i data-feather="calendar"></i> Events</a></li>
-                </ul>
-                <ul>
-                  <li class="nav-label">Error Pages</li>
-                  <li class="nav-sub-item"><a href="page-404.html" class="nav-sub-link"><i data-feather="file"></i> 404 Page Not Found</a></li>
-                  <li class="nav-sub-item"><a href="page-500.html" class="nav-sub-link"><i data-feather="file"></i> 500 Internal Server</a></li>
-                  <li class="nav-sub-item"><a href="page-503.html" class="nav-sub-link"><i data-feather="file"></i> 503 Service Unavailable</a></li>
-                  <li class="nav-sub-item"><a href="page-505.html" class="nav-sub-link"><i data-feather="file"></i> 505 Forbidden</a></li>
-                  <li class="nav-label mg-t-20">Other Pages</li>
-                  <li class="nav-sub-item"><a href="page-timeline.html" class="nav-sub-link"><i data-feather="file-text"></i> Timeline</a></li>
-                  <li class="nav-sub-item"><a href="page-pricing.html" class="nav-sub-link"><i data-feather="file-text"></i> Pricing</a></li>
-                  <li class="nav-sub-item"><a href="page-help-center.html" class="nav-sub-link"><i data-feather="file-text"></i> Help Center</a></li>
-                  <li class="nav-sub-item"><a href="page-invoice.html" class="nav-sub-link"><i data-feather="file-text"></i> Invoice</a></li>
-                </ul>
-              </div>
-            </div><!-- nav-sub -->
-          </li>
-          <li class="nav-item"><a href="../../components/" class="nav-link"><i data-feather="box"></i> Components</a></li>
-          <li class="nav-item"><a href="../../collections/" class="nav-link"><i data-feather="archive"></i> Collections</a></li>
-        </ul>
-      </div><!-- navbar-menu-wrapper -->
-      <div class="navbar-right">
-        <a href="http://dribbble.com/themepixels" class="btn btn-social"><i class="fab fa-dribbble"></i></a>
-        <a href="https://github.com/themepixels" class="btn btn-social"><i class="fab fa-github"></i></a>
-        <a href="https://twitter.com/themepixels" class="btn btn-social"><i class="fab fa-twitter"></i></a>
-        <a href="https://themeforest.net/item/dashforge-responsive-admin-dashboard-template/23725961" class="btn btn-buy"><i data-feather="shopping-bag"></i> <span>Buy Now</span></a>
-      </div><!-- navbar-right -->
-    </header><!-- navbar -->
-
     <div class="content content-fixed content-auth">
       <div class="container">
         <div class="media align-items-stretch justify-content-center ht-100p">
@@ -161,11 +162,11 @@
             </form>
           </div><!-- sign-wrapper -->
           <div class="media-body pd-y-30 pd-lg-x-50 pd-xl-x-60 align-items-center d-none d-lg-flex pos-relative">
-            <div class="mx-lg-wd-500 mx-xl-wd-550">
-              <img src="https://placehold.co/1280x1225" class="img-fluid" alt="">
-            </div>
-            <div class="pos-absolute b-0 r-0 tx-12">
-              Social media marketing vector is created by <a href="https://www.freepik.com/pikisuperstar" target="_blank">pikisuperstar (freepik.com)</a>
+            <div class="mx-lg-wd-600 mx-xl-wd-550">
+              <div class="cardimage">
+                <img src="{{ url('assets/img/modest-1.jpg')}}" class="img-fluid" alt="">
+              </div>
+              {{-- <img src="{{ url('assets/img/modest-1.jpg')}}" class="img-fluid" alt=""> --}}
             </div>
           </div><!-- media-body -->
         </div><!-- media -->
