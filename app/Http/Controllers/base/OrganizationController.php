@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\base\Organization;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
     public function index(){
+        $role = Auth::user()->getRoleNames()->first();
         return view('admin.base.organization.index');
     }
     public function create(){
