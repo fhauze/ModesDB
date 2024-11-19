@@ -29,6 +29,7 @@
 <!-- append theme customizer -->
 <script src="{{ url('lib/js-cookie/js.cookie.js')}}"></script>
 <script src="{{ url('assets/js/dashforge.settings.js')}}"></script>
+<script src="{{ url('assets/js/dashforge.aside.js')}}"></script>
 
 <!-- Data table -->
 <script src="{{ url('lib/prismjs/prism.js')}}"></script>
