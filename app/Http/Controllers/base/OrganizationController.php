@@ -12,7 +12,6 @@ use Spatie\Permission\Models\Role;
 class OrganizationController extends Controller
 {
     public function index(){
-        $role = Auth::user()->getRoleNames()->first();
         return view('admin.base.organization.index');
     }
     public function create(){
