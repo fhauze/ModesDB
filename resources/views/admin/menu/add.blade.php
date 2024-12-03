@@ -104,9 +104,9 @@
                             <td>{{ $parent->parent_id ?? '' }}</td>
                             <td>{{ $parent->route_name ?? '' }}</td>
                             <td class="text-end">
-                                <a href="" style="margin-right: 10px;"><i class="fa fa-eye"></i> </a>
+                                {{-- <a href="" style="margin-right: 10px;"><i class="fa fa-eye"></i> </a>
                                 <a href="" style="margin-right: 10px;"><i class='fa fa-edit'></i> </a>
-                                <a href="" style="margin-right: 10px;"><i class="fa fa-trash"> </i></a>
+                                <a href="" style="margin-right: 10px;"><i class="fa fa-trash"> </i></a> --}}
                             </td>
                         </tr>
                     @endforeach
