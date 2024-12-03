@@ -22,13 +22,24 @@
             <form id="formAdd" class="needs-validation was-validated" novalidate action="{{route('adm.menu.store')}}" method="POST">
                 <div class="row row-sm mg-b-10">
                     <div class="col-sm-6 form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name (semua huruf kecil dan tidak mengandung spasi)</label>
                         <input 
                             type="text" 
                             class="form-control" 
                             placeholder=" @error('nib') {{ $message }} @else {{'Menu name'}} @enderror" 
                             name="name"
                             id="name"
+                            value="{{old('nib')}}"
+                            required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="display_name">Display Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder=" @error('nib') {{ $message }} @else {{'Menu name'}} @enderror" 
+                            name="display_name"
+                            id="display_name"
                             value="{{old('nib')}}"
                             required>
                     </div>
@@ -218,7 +229,8 @@
             //     _token = _token.value;
             const data = {
                 name: document.getElementById('name').value,
-                type: document.getElementById('type').value
+                type: document.getElementById('type').value,
+                display_name: document.getElementById('display_name').value,
             };
             e.preventDefault();
             fetch("{{route('adm.menu.store')}}",{
@@ -254,6 +266,7 @@
                     btnParentGroup.setAttribute("hidden","hidden")
                     subDiv.removeAttribute('hidden')
                     btnSubAdd.removeAttribute('hidden')
+                    window.location.reload()
                 }
             })
             .catch(error => {
