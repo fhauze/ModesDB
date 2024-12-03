@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('module_permissions', function (Blueprint $table) {
+        Schema::create('module_permission', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama hak akses, misal: 'read', 'edit', 'delete'
-            $table->foreignId('module_id')->constrained(); // Hubungan dengan tabel modules
+            $table->string('name'); 
+            $table->foreignId('module_id')->constrained('modules'); // Hubungan dengan tabel modules
             $table->timestamps();
         });
     }

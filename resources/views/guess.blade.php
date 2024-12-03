@@ -44,16 +44,17 @@
     <!-- Map  -->
     <!-- <link href="{{('/lib/prismjs/themes/prism-vs.css')}}" rel="stylesheet"> -->
     <link href="{{ url('lib/leaflet/leaflet.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/css/custom.css') }}" rel="stylesheet">
 
   </head>
-  <body class="home-body">
+  <body class="home-body container">
     @include('layouts.guess.header')
-    <div class="home-slider">
+    <div class="home-slider container">
       <div class="home-lead">
-        <div class="df-logo-initial mg-b-15"><p>iMf</p></div>
+         <div class="df-logo-initial mg-b-15"><p>iMf</p></div>
           <p class="home-text">Indonesian <span class="nsv-link">M</span>odest Fashion</p>
           <p class="c">
-            <span>
+            <span class="text-devider">
             Fesyen modest adalah gaya berbusana yang menonjolkan nilai-nilai kesopanan sekaligus memadukan unsur estetika dan keindahan. 
             Gaya ini dirancang untuk memberikan kenyamanan dan perlindungan dengan menutup sebagian besar bagian tubuh manusia, namun tetap mengutamakan kreativitas dalam desain dan pilihan material. 
             Fesyen modest tidak hanya memenuhi standar kesopanan, tetapi juga merepresentasikan identitas budaya, kepribadian, dan kepercayaan pemakainya.
@@ -62,10 +63,10 @@
             </span>
           </p>
 
-         {{-- <div class="d-flex wd-lg-350">
+        {{-- <div class="d-flex wd-lg-350">
           <a href="" class="btn btn-brand-01 btn-uppercase flex-fill">Pops</a>
           <a href="" class="btn btn-white btn-uppercase flex-fill mg-l-10">Explore Data</a>
-        </div> --}} 
+        </div> --}}
 
         <div class="text-left mt-2 p-0"><i>Powered By</i></div>
         <div class="d-flex tx-20 mg-t-0">
@@ -94,10 +95,79 @@
         <div><img src="assets/img/modest-2.jpg" alt=""></div>
         <div><img src="assets/img/modest-4.jpg" alt=""></div>
       </div>
-      <div class="home-slider-bg-one"></div>
+      <!-- <div class="home-slider-bg-one"></div> -->
     </div><!-- home-slider -->
 
-    <div class="row container ms-4">
+    <div class="row container mw-100 m-2">
+      <div class="content content-components">
+        <div class="container">
+          <div data-label="Example" class="col-12">
+              <div id="myCarousel" class="mw-100 carousel slide m-0" data-bs-ride="carousel">
+                <div class="carousel-inner w-100">
+                  <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                          <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row justify-content-center">
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-body">
+                        <img class="img-fluid" src="assets/img/modest-1.jpg?text=iMf">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container mw-100 m-2">
       <div class="content content-components">
         <div class="container">
           <div data-label="Example" class="col-12">
@@ -107,7 +177,7 @@
       </div>
     </div>
     <br/>
-    <div class="row container ms-4">
+    <div class="row container container mw-100 m-2 ">
       <div class="content content-components">
         <div class="container">
           <div class="col-lg-12 col-xl-12 mg-t-10">

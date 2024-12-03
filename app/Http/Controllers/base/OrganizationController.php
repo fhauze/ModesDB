@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\base\Organization;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
@@ -43,7 +43,7 @@ class OrganizationController extends Controller
         }));
         
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('requiredFields', $requiredFields);;
+            return back()->withErrors($validator)->withInput()->with('requiredFields', $requiredFields);
         }
         try {
             $org = Organization::create($request->only($fields));

@@ -20,18 +20,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit_module']);
         Permission::create(['name' => 'delete_module']);
 
-        // Membuat Roles
-        $admin = Role::create(['name' => 'admin']);
-        $editor = Role::create(['name' => 'editor']);
+        $admin = Role::create(['name' => 'administrator']);
+        $contributor = Role::create(['name' => 'contributor']);
         $user = Role::create(['name' => 'user']);
 
-        // Memberikan Permission ke Admin
         $admin->givePermissionTo(['read_module', 'create_module', 'edit_module', 'delete_module']);
-        
-        // Memberikan Permission ke Editor
-        $editor->givePermissionTo(['read_module', 'create_module', 'edit_module']);
-        
-        // Memberikan Permission ke User
+        $contributor->givePermissionTo(['read_module', 'create_module', 'edit_module']);
         $user->givePermissionTo(['read_module']);
     }
 }

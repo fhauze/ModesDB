@@ -3,10 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Permission;
 
 class Module extends Model
 {
-    protected $table = 'users';
+    use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+    ];
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'module_permission');
+    }
 }

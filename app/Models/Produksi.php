@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Usaha;
 
 class Produksi extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'perusahaan_id',
+        'usaha_id',
         'person_id',
         'jenis_usaha',
         'pekerja',
@@ -21,9 +22,9 @@ class Produksi extends Model
         'lokasi_usaha'
     ];
 
-    public function perusahaan()
+    public function usaha()
     {
-        return $this->belongsTo(Perusahaan::class);
+        return $this->belongsTo(Usaha::class);
     }
 
     public function person()

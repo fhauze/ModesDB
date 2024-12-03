@@ -11,7 +11,6 @@
     </nav>
     </div>
 </footer>
-
 <script src="{{ url('lib/jquery/jquery.min.js')}}"></script>
 <script src="{{ url('lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{ url('lib/feather-icons/feather.min.js')}}"></script>
@@ -28,7 +27,7 @@
 
 <!-- append theme customizer -->
 <script src="{{ url('lib/js-cookie/js.cookie.js')}}"></script>
-<script src="{{ url('assets/js/dashforge.settings.js')}}"></script>
+<!-- <script src="{{ url('assets/js/dashforge.settings.js')}}"></script> -->
 <script src="{{ url('assets/js/dashforge.aside.js')}}"></script>
 
 <!-- Data table -->
@@ -37,7 +36,8 @@
 <script src="{{ url('lib/datatables.net-dt/js/dataTables.dataTables.min.js')}}"></script>
 <script src="{{ url('lib/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ url('lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js')}}"></script>
-<script src="{{ url('lib/select2/js/select2.min.js')}}"></script>
+<script src="{{ url('assets/js/select2.full.min.js')}}"></script>
+<script src="{{ url('assets/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{ url('assets/js/yearpicker.js')}}"></script>
 
 @yield('scripts')

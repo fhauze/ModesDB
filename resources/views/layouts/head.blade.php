@@ -22,6 +22,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="600">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 5 Dashboard Template">
@@ -40,6 +41,23 @@
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="{{ url('assets/css/dashforge.css')}}">
     <link rel="stylesheet" href="{{ url('assets/css/dashforge.dashboard.css')}}">
-    
+
+    <link rel="stylesheet" href="{{ url('assets/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ url('lib/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}">
+    <link href="{{ url('lib/leaflet/leaflet.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <style>
+      .select2-container {
+        z-index: 2000 !important;
+      }
+      .select2-selection__rendered {
+        line-height: 32px !important;
+      }
+
+      .select2-selection {
+        height: 34px !important;
+      }
+    </style>
     @yield('styles')
   </head>

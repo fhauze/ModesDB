@@ -4,6 +4,17 @@
  * This style is use in landing page.
  *
  */
+ .home-slider-page {
+  width: 90%;
+  height: calc(100vh - 60px);
+  position: relative;
+  /* padding: 20px; */
+  display: flex;
+  /* align-items: flex-end; */
+  overflow: hidden; 
+  align-items: center;
+  justify-content: center;
+}
 .home-slider {
   width: 100%;
   height: calc(100vh - 60px);

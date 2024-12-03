@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use App\Helpers\Menu;
+use App\Helpers\SubMenu;
 
 class HomeController extends Controller
 {

@@ -1,14 +1,14 @@
 
 // Append settings
 $.ajax({
-  url: '../../settings.html',
+  url: '../../../assets/settings.html',
   success: function(result){
     $('body').append(result);
     feather.replace();
 
     var hasMode = Cookies.get('df-mode');
     if(hasMode) {
-      $('head').append('<link id="dfMode" rel="stylesheet" href="../../assets/css/skin.'+hasMode+'.css">')
+      $('head').append('<link id="dfMode" rel="stylesheet" href="../../../assets/css/skin.'+hasMode+'.css">')
       $('body').find('.df-mode').each(function(){
         var name = $(this).attr('data-title');
         if(name === hasMode) {
@@ -36,7 +36,7 @@ $.ajax({
     $('body').on('click', '#dfSettingsShow', function(e){
       e.preventDefault()
 
-      $('.df-settings').toggleClass('show');
+      // $('.df-settings').toggleClass('show');
     })
 
     $('body').on('click', '.df-mode', function(e){

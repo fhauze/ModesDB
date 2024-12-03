@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orang', function (Blueprint $table) {
+        Schema::create('person', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
+            $table->string('nama')->nullable();
+            $table->enum('jenis_kelamin', ['l', 'p'])->nullable();;
             $table->date('tanggal_lahir')->nullable();
             $table->text('alamat')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('no_telepon')->nullable();
-            $table->enum('jenis_orang', ['Pekerja', 'PemilikPerusahaan', 'Suplier', 'PenggunaAplikasi']);
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('jenis_orang')->nullable();
+            $table->boolean('iscomplete')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orang');
+        Schema::dropIfExists('person');
     }
 };

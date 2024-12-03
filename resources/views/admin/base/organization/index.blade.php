@@ -13,6 +13,9 @@
     </hr>
     @endsection
     <div class="container-fluid">
+        <h4 class="text-start">Organization</h4>
+        <p class="tx-color-03 tx-12 mg-b-0">Daftar Organisasi (bisa berbentuk kelompok usaha, dan perusahaan)</p>
+        <br/>
         <fieldset class="form-fieldset">
         <div class="d-flex justify-content-end mb-4">
             <a class='btn border border-danger' href="{{route('adm.org.create')}}"> <i class='fa fa-plus-circle'></i><span class="m-2">Tambah</span></a>
