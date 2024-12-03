@@ -264,29 +264,26 @@
                 });
             }
             if(bdelete){
-                // DELETE KATEGORI
-                bdelete.addEventListener('click', () => {
-                    modalDelete.show();
-                    const delId = btnKategoriDelete.getAttribute('data-id');
-                    const urlDel = `{{ url('adm/kategori') }}/${delId}`;
-                    confirmDelete.addEventListener('click', function() {
-                        fetch(urlDel, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-type': 'application/json',
-                                'X-CSRF-TOKEN': _token,
-                            }
-                        }).then(response => {
-                            if (response.ok) {
-                                modalDelete.hide();
-                                window.location.reload();
-                            } else {
-                                alert('Failed to delete category');
-                            }
-                        }).catch(error => {
-                            console.log(error);
-                            alert('Error occurred while deleting category');
-                        });
+                modalDelete.show();
+                const delId = btnKategoriDelete.getAttribute('data-id');
+                const urlDel = `{{ url('adm/kategori') }}/${delId}`;
+                confirmDelete.addEventListener('click', function() {
+                    fetch(urlDel, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRF-TOKEN': _token,
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            modalDelete.hide();
+                            window.location.reload();
+                        } else {
+                            alert('Failed to delete category');
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                        alert('Error occurred while deleting category');
                     });
                 });
             }

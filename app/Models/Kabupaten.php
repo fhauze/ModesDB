@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Provinsi;
 use Illuminate\Database\Eloquent\Model;
 
 class Kabupaten extends Model
@@ -12,4 +13,8 @@ class Kabupaten extends Model
         'kode',
         'provinsi_id'
     ];
+
+    public function provinsi(){
+        return $this->belongsTo(Provinsi::class, 'provinsi_id');
+    }
 }

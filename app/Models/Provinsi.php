@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Negara;
+use App\Models\kabupaten;
 use Illuminate\Database\Eloquent\Model;
 
 class Provinsi extends Model
@@ -15,5 +16,9 @@ class Provinsi extends Model
 
     public function negara(){
         return $this->belongsTo(Negara::class, 'negara_id');
+    }
+
+    public function kabupatens(){
+        return $this->hasMany(Kabupaten::class);
     }
 }

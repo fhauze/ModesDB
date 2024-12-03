@@ -28,7 +28,6 @@ class KategoriController extends Controller
     public function show($id)
     {
         $kategori = Kategori::find($id);
-
         if ($kategori) {
             return response()->json([
                 'code' => 200,
@@ -49,8 +48,6 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
-        // Aturan validasi
         $rules = [
             'nama' => 'required|min:4',
             'deskripsi' => 'required|min:10',

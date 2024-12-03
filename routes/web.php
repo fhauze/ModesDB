@@ -20,7 +20,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('jenis', App\Http\Controllers\JenisController::class);
         Route::resource('kategori', App\Http\Controllers\KategoriController::class);
         Route::resource('person', App\Http\Controllers\base\PersonController::class);
+        Route::resource('negara', App\Http\Controllers\NegaraController::class);
         Route::resource('provinsi', App\Http\Controllers\ProvinsiController::class);
+        Route::resource('kabupaten', App\Http\Controllers\KabupatenController::class);
     });
 });
 
