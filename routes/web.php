@@ -33,6 +33,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('jenis/by-id/{id}', [App\Http\Controllers\JenisController::class, 'getByID'])->name('jenis.by-id');
         Route::get('jenis/all', [App\Http\Controllers\JenisController::class, 'all'])->name('jenis.all');
         Route::get('kategori/by-id/{id}', [App\Http\Controllers\KategoriController::class, 'getByID'])->name('jenis.by-id');
+
+        //roles
+        Route::get('roles/{id}/edits', [App\Http\Controllers\RoleController::class, 'editRole'])->name('roles.editRole');
+        Route::post('roles/updates', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('roles.updateRole');
     });
 });
 
@@ -45,10 +49,6 @@ Route::post('authenticating', [App\Http\Controllers\auth\AuthController::class, 
 Route::post('logout', [App\Http\Controllers\auth\AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
 Route::get('me', [App\Http\Controllers\auth\AuthController::class, 'me'])->middleware('auth:sanctum');
 Route::post('admin/roles/{role}/permissions/{module}', [App\Http\Controllers\RoleController::class, 'updatePermissionAccess']);
-
-
-Route::get('roles/{id}/edits', [App\Http\Controllers\RoleController::class, 'editRole'])->name('roles.editRole');
-Route::post('roles/updates', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('roles.updateRole');
 
 use App\Http\Controllers\PermissionController;
 

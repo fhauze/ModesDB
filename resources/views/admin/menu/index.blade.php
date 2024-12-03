@@ -105,6 +105,9 @@
                     <div class="col-sm-12 form-group p-name">
                         <label for="sub_name">Name</label>
                     </div>
+                    <div class="col-sm-12 form-group p-display">
+                        <label for="sub_display_name">Display Name</label>
+                    </div>
                     <div class="col-sm-12 form-group p-type">
                         <label for="sub_name">Type</label>
                     </div>
@@ -154,10 +157,12 @@
         const modalEditElement = new bootstrap.Modal(modalEdit,{keyboard:true,backdrop:true});
         const modalDeleteElement = new bootstrap.Modal(modalDelete,{keyboard:true,backdrop:true});
         const ename = createEl('input', {class:'form-control', id:'e-name', name:'e-name', required:true});
+        const edispname = createEl('input', {class:'form-control', id:'e-display', name:'e-display', required:true});
         const etype = createDropdown("e-type",[{id:'link', name:'Link'}, {id:'dropdown', name:'Dropdown'}]);
         const btnModalEditSave = document.querySelector('.modal-edit-btn-save');
         document.querySelector('.p-name').appendChild(ename);
         document.querySelector('.p-type').appendChild(etype);
+        document.querySelector('.p-display').appendChild(edispname);
         
         document.addEventListener('click', function(event){
             let diss = event.target.closest('[data-dismiss="modal"]');
@@ -185,6 +190,7 @@
                     let dataResponse = data.data
                     ename.value=dataResponse.name
                     etype.value = dataResponse.type
+                    edispname.value = dataResponse.display_name
                     
                     let url = `{{url('adm/menu')}}/${dataResponse.id}`;
                     console.log('error');
@@ -193,29 +199,30 @@
                     $("#modal-sub-menu").attr('method', "PATCH");
                     console.log('error');
                     btnModalEditSave.addEventListener('click', function(e){
-                    console.log("toSave",dataResponse.id)
-                    e.preventDefault();
-                    
-                    let data = {
-                        name : $('#e-name').val(),
-                        type : $('#e-type').val(),
-                    }
-                    fetch(url,{
-                        method:"PATCH",
-                        headers:{
-                            'Content-Type' : 'application/json',
-                            'X-CSRF-TOKEN' : _token
-                        },
-                        body :JSON.stringify(data)
-                    }).then(response => {
-                        if(response.ok){
-                            modalEditElement.hide();
-                            window.location.reload();
+                        console.log("toSave",dataResponse.id)
+                        e.preventDefault();
+                        
+                        let data = {
+                            name : $('#e-name').val(),
+                            type : $('#e-type').val(),
+                            display_name : $('#e-display').val(),
                         }
-                    }).catch(error => {
-                        console.log("error", error)
+                        fetch(url,{
+                            method:"PATCH",
+                            headers:{
+                                'Content-Type' : 'application/json',
+                                'X-CSRF-TOKEN' : _token
+                            },
+                            body :JSON.stringify(data)
+                        }).then(response => {
+                            if(response.ok){
+                                modalEditElement.hide();
+                                window.location.reload();
+                            }
+                        }).catch(error => {
+                            console.log("error", error)
+                        });
                     });
-                });
                 })
                 .catch(error =>{
                 });

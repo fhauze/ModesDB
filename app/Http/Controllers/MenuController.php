@@ -42,6 +42,7 @@ class MenuController extends Controller
         
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:menus',
+            'display_name' => 'required',
             'type' => 'required'
         ]);
 
@@ -92,8 +93,9 @@ class MenuController extends Controller
     public function update(Request $request, string $id)
     {
         $valid = Validator::make($request->all(),[
-            'name' => 'unique:menus',
-            'type' => 'required'
+            'name' => 'required',
+            'type' => 'required',
+            'display_name' => 'required'
         ]);
 
         if($valid->fails()){
@@ -105,6 +107,7 @@ class MenuController extends Controller
                 ]
             );
         }
+        
         $data = Menu::where('id',$id)->update($request->all());
         if($data){
             return $response = [
