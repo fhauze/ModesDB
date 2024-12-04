@@ -33,7 +33,7 @@
                 <div class="row row-sm mg-b-10">
                     <div class="col-sm-12 form-group">
                         <label for="alamat" class="form-label">Alamat</label>
-                        <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
+                        <textarea type="text" class="form-control" id="alamat" name="alamat">{{ old('alamat')}}</textarea>
                     </div>
                 </div>
                 <div class="parsley-select col-sm-6 form-group">
@@ -41,7 +41,7 @@
                     <select class="form-select" name="jenis_id" id="jenis_id" required>
                         <option value="" selected>Choose one</option>
                         @foreach($jenis as $type)
-                            <option value="{{$type['id']}}" >{{$type['nama']}}</option>
+                            <option value="{{$type['id'] }}" {{ old('jenis_id') == $type ? 'selected' :''}} >{{$type['nama']}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -86,20 +86,27 @@
                     </div>
                 </div>
                 <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-12 form-group">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
                         <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{ old('deskripsi') }}</textarea>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="social_media" class="form-label">Media Sosial</label>
-                        <input type="text" class="form-control" id="social_media" name="social_media" value="{{ old('social_media') }}">
                     </div>
                 </div>
                 <div class="row row-sm mg-b-10">
                     <div class="col-sm-6 form-group">
+                    <label for="social_media" class="form-label">Media Sosial</label>
+                        <select class="form-select" name="social_media" id="social_media" required>
+                            <option value="" selected>Choose one</option>
+                            @foreach($socials as $sos)
+                                <option value="{{$sos['id']}}" >{{$sos['name']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
                         <label for="sosmed_accoutn" class="form-label">Akun Media Sosial</label>
                         <input type="text" class="form-control" id="sosmed_accoutn" name="sosmed_accoutn" value="{{ old('sosmed_accoutn') }}">
                     </div>
+                </div>
+                <div class="row row-sm mg-b-10 mb-4">
                     <div class="col-sm-6 form-group">
                         <label for="website" class="form-label">Website</label>
                         <input type="url" class="form-control" id="website" name="website" value="{{ old('website') }}">

@@ -37,6 +37,11 @@ class UsahaController extends Controller
             'kabupatens' => Kabupaten::all(),
             'jenis' => Jenis::all()->toArray(),
             'kategori' => Kategori::all(),
+            'socials' => [
+                ['id' => 'Facebook', 'name' => 'Facebook'],
+                ['id' => 'Instagram', 'name' => 'Instagram'],
+                ['id' => 'TokTok', 'name' => 'TikTok']
+            ],
         ]);
     }
 
@@ -49,30 +54,34 @@ class UsahaController extends Controller
         $request->merge(['person_id' => Auth::user()->person->id]);
         
         $valid = Validator::make($request->all(),[
-            // 'nama' => 'required',
-            // 'alamat' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
             'jenis_id' => 'required',
             'teknologi' => 'nullable',
             'pekerja' => 'required',
             'sertifikasi' => 'nullable',
             'tahun_berdiri' => 'required',
             'deskripsi' => 'nullable',
-            // 'social_media' => 'nullable',
-            // 'sosmed_accoutn' => 'nullable',
+            'social_media' => 'nullable',
+            'sosmed_accoutn' => 'nullable',
             'website' => 'nullable',
-            // 'provinsi_id' => 'required',
-            // 'kabkot_id' => 'required',
-            'org_id' =>'required',
+            'provinsi_id' => 'required',
+            'kabkot_id' => 'required',
+            'org_id' =>'nullable',
             'person_id' => 'nullable',
-            'kategori_id' => 'required'
+            'kategori_id' => 'nullable'
         ]);
         
         if($valid->fails()){
-
+            return back()->withErrors($valid->errors())->withInput();
         }
 
         try{
-
+            unset($request->_token);
+            $process = Usaha::create($request->all());
+            if($process){
+                return redirect()->route('adm.usaha.index');
+            }
         }catch(Exception $e){
             dd('Error : ' .$e);
         }
@@ -91,7 +100,20 @@ class UsahaController extends Controller
      */
     public function edit(Usaha $usaha)
     {
-        return view('admin.usaha.edit', compact('usaha'));
+        return view('admin.usaha.edit', [
+            'usaha' => $usaha,
+            'jenis' => Jenis::all()->toArray(),
+            'tahuns' => (new Usaha)->tahuns(),
+            'provinsi' => Provinsi::all(),
+            'kabupatens' => Kabupaten::all(),
+            'jenis' => Jenis::all()->toArray(),
+            'kategori' => Kategori::all(),
+            'socials' => [
+                ['id' => 'Facebook', 'name' => 'Facebook'],
+                ['id' => 'Instagram', 'name' => 'Instagram'],
+                ['id' => 'TokTok', 'name' => 'TikTok']
+            ],
+        ]);
     }
 
     /**
@@ -116,7 +138,7 @@ class UsahaController extends Controller
         
         $usaha->update($request->all());
 
-        return redirect()->route('usaha.index')->with('success', 'Data usaha berhasil diperbarui.');
+        return redirect()->route('adm.usaha.index')->with('success', 'Data usaha berhasil diperbarui.');
     }
 
     /**
@@ -124,6 +146,14 @@ class UsahaController extends Controller
      */
     public function destroy(Usaha $usaha)
     {
-        //
+        $process = $usaha->delete();
+        return redirect()->route('adm.usaha.index');
+    }
+
+    public function getLastTenYears()
+    {
+        $currentYear = date('Y');
+        $lastTenYears = range($currentYear, $currentYear - 9);
+        return $lastTenYears;
     }
 }

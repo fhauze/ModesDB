@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('sosmed_accoutn');
             $table->string('website');
             $table->unsignedBigInteger('jenis_id');
-            $table->unsignedBigInteger('org_id');
+            $table->unsignedBigInteger('org_id')->nullable();
             $table->unsignedBigInteger('provinsi_id');
             $table->unsignedBigInteger('kabkot_id');
             $table->unsignedBigInteger('person_id');
 
-            $table->foreign('org_id')->references('id')->on('organization');
+            // $table->foreign('org_id')->references('id')->on('organization');
             $table->foreign('provinsi_id')->references('id')->on('provinsis');
             $table->foreign('kabkot_id')->references('id')->on('kabupatens');
             $table->foreign('person_id')->references('id')->on('person');

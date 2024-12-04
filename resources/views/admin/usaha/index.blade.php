@@ -42,7 +42,7 @@
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
                                 @foreach($tahuns as $tahun)
-                                    <option value="{{$tahun['tahun']}}">{{$tahun['tahun']}}</option>
+                                    <option value="{{$tahun['tahun_berdiri']}}">{{$tahun['tahun_berdiri']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -76,15 +76,15 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <!-- Edit Button -->
-                                            <a href="{{ route('usaha.edit', $usaha) }}" class="btn btn-warning btn-sm" title="Edit">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a href="{{ route('adm.usaha.edit', $usaha) }}" class="btn" title="Edit">
+                                                <i class='fa fa-edit'></i>
                                             </a>
                                             <!-- Delete Button -->
-                                            <form action="{{ route('usaha.destroy', $usaha) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus usaha ini?')">
+                                            <form action="{{ route('adm.usaha.destroy', $usaha) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus usaha ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="submit" class="btn " title="Hapus">
+                                                    <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
                                         </div>

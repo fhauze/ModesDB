@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Organization;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 
 class Usaha extends Model
 {
@@ -58,5 +60,13 @@ class Usaha extends Model
             ->from('usaha')
             ->get()
             ->toArray();
+    }
+
+    public function provinsi(){
+        return $this->belongsTo(Provinsi::class, 'provinsi_id');
+    }
+
+    public function kabkota(){
+        return $this->belongsTo(Kabupaten::class, 'kabkot_id');
     }
 }
