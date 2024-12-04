@@ -205,7 +205,7 @@
                             },
                             data: data,
                             success: function (response) {
-                                // location.reload();
+                                location.reload();
                             },
                             error: function (error) {
                                 alert('Failed to create data.');

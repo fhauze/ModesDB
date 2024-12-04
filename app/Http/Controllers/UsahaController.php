@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usaha;
+use App\Models\Jenis;
+use App\Models\Kategori;
+use App\Models\Negara;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UsahaController extends Controller
 {
@@ -12,7 +19,11 @@ class UsahaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.usaha.index', [
+            'datas' => Usaha::all(),
+            'jenis' => Jenis::all()->toArray(),
+            'tahuns' => (new Usaha)->tahuns(),
+        ]);
     }
 
     /**
@@ -20,7 +31,13 @@ class UsahaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.usaha.add',[
+            'negara' => Negara::all(),
+            'provinsi' => Provinsi::all(),
+            'kabupatens' => Kabupaten::all(),
+            'jenis' => Jenis::all()->toArray(),
+            'kategori' => Kategori::all(),
+        ]);
     }
 
     /**
@@ -28,7 +45,37 @@ class UsahaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->merge(['person_id' => Auth::user()->person->id]);
+        
+        $valid = Validator::make($request->all(),[
+            // 'nama' => 'required',
+            // 'alamat' => 'required',
+            'jenis_id' => 'required',
+            'teknologi' => 'nullable',
+            'pekerja' => 'required',
+            'sertifikasi' => 'nullable',
+            'tahun_berdiri' => 'required',
+            'deskripsi' => 'nullable',
+            // 'social_media' => 'nullable',
+            // 'sosmed_accoutn' => 'nullable',
+            'website' => 'nullable',
+            // 'provinsi_id' => 'required',
+            // 'kabkot_id' => 'required',
+            'org_id' =>'required',
+            'person_id' => 'nullable',
+            'kategori_id' => 'required'
+        ]);
+        
+        if($valid->fails()){
+
+        }
+
+        try{
+
+        }catch(Exception $e){
+            dd('Error : ' .$e);
+        }
     }
 
     /**

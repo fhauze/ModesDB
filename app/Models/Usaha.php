@@ -35,7 +35,28 @@ class Usaha extends Model
         return $this->belongsTo(Organization::Class, 'org_id');
     }
 
-    public function person(){
+    public function owner(){
         return $this->belongsTo('App\Models\Person','person_id');
+    }
+
+    public function karyawans(){
+        return [];
+    }
+
+    public function tahuns(){
+        return $this->select('tahun_berdiri')
+            ->distinct()
+            ->get()
+            ->toArray();
+    }
+
+    public static function jenis()
+    {
+        return self::join('jenis', 'usaha.jenis_id', '=', 'jenis.id')
+            ->distinct()
+            ->select('jenis.id', 'jenis.nama')
+            ->from('usaha')
+            ->get()
+            ->toArray();
     }
 }

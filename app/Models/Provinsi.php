@@ -21,4 +21,12 @@ class Provinsi extends Model
     public function kabupatens(){
         return $this->hasMany(Kabupaten::class);
     }
+
+    public function kabupatensByProvinsi($id){
+        return Kabupaten::where('provinsi_id', $id)->get();
+    }
+
+    public function byNegara($negara_id){
+        return $this->where('negara_id',$negara_id)->get();
+    }
 }

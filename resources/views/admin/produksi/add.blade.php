@@ -17,97 +17,137 @@
         </div>
     </div>
     @endsection
-    <div class="container col-md-10">
-        <h4 class="text-start">Tambah Data Usaha</h4>
-        <p class="tx-color-03 tx-12 mg-b-0">Form untuk menambah data usaha.</p>
-        <br/>
+    <div class="container">
         <fieldset class="form-fieldset">
-            <form action="{{ route('adm.usaha.store') }}" method="POST">
-                @csrf
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="nama" class="form-label">Nama Usaha</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}" required>
-                    </div>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-12 form-group">
-                        <label for="alamat" class="form-label">Alamat</label>
-                        <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
-                    </div>
-                </div>
-                <div class="parsley-select col-sm-6 form-group">
-                    <label for="type">Jenis</label>
-                    <select class="form-select" name="jenis_id" id="jenis_id" required>
-                        <option value="" selected>Choose one</option>
-                        @foreach($jenis as $type)
-                            <option value="{{$type['id']}}" >{{$type['nama']}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="provinsi_id" class="form-label">Provinsi</label>
-                        <select class="form-select" name="provinsi_id" id="provinsi_id" required>
-                            <option value="" selected>Choose one</option>
-                            @foreach($provinsi as $prov)
-                                <option value="{{$prov['id']}}" >{{$prov['nama']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="kabkot_id" class="form-label">Kab/Kota</label>
-                        <select class="form-select" name="kabkot_id" id="kabkot_id" required>
-                            <option value="" selected>Choose one</option>
-                            @foreach($kabupatens as $kabkota)
-                                <option value="{{$kabkota['id']}}" >{{$kabkota['nama']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="teknologi" class="form-label">Teknologi</label>
-                        <input type="text" class="form-control" id="teknologi" name="teknologi" value="{{ old('teknologi') }}">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="pekerja" class="form-label">Jumlah Pekerja</label>
-                        <input type="number" class="form-control" id="pekerja" name="pekerja" value="{{ old('pekerja') }}">
-                    </div>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="sertifikasi" class="form-label">Sertifikasi</label>
-                        <input type="text" class="form-control" id="sertifikasi" name="sertifikasi" value="{{ old('sertifikasi') }}">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="tahun_berdiri" class="form-label">Tahun Berdiri</label>
-                        <input type="number" class="form-control" id="tahun_berdiri" name="tahun_berdiri" value="{{ old('tahun_berdiri') }}">
-                    </div>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{ old('deskripsi') }}</textarea>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="social_media" class="form-label">Media Sosial</label>
-                        <input type="text" class="form-control" id="social_media" name="social_media" value="{{ old('social_media') }}">
-                    </div>
-                </div>
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="sosmed_accoutn" class="form-label">Akun Media Sosial</label>
-                        <input type="text" class="form-control" id="sosmed_accoutn" name="sosmed_accoutn" value="{{ old('sosmed_accoutn') }}">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label for="website" class="form-label">Website</label>
-                        <input type="url" class="form-control" id="website" name="website" value="{{ old('website') }}">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </form>
+        <form action="{{ route('usaha.update', $usaha) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama Usaha</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="{{ $usaha->nama }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $usaha->alamat }}" required>
+            </div>
+            <div class="parsley-select col-sm-6 form-group">
+                <input type="hidden" name="idme" id="idme" value="{{$data->id}}"/>
+                <label for="type">Jenis</label>
+                <select class="form-select" name="type" id="type" required disabled>
+                    <option value="" selected>Choose one</option>
+                    @foreach($types as $type)
+                        <option value="{{$type['value']}}" {{$type['value'] == $data->type ? 'selected' :''}}>{{$type['name']}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="parsley-select col-sm-6 form-group">
+                <input type="hidden" name="idme" id="idme" value="{{$data->id}}"/>
+                <label for="type">Kategori</label>
+                <select class="form-select" name="type" id="type" required disabled>
+                    <option value="" selected>Choose one</option>
+                    @foreach($kategoris as $kategori)
+                        <option value="{{$type['value']}}" {{$type['value'] == $data->type ? 'selected' :''}}>{{$type['name']}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="provinsi_id" class="form-label">Provinsi</label>
+                <input type="number" class="form-control" id="provinsi_id" name="provinsi_id" value="{{ $usaha->provinsi_id }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="kabkot_id" class="form-label">Kab/Kota</label>
+                <input type="number" class="form-control" id="kabkot_id" name="kabkot_id" value="{{ $usaha->kabkot_id }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="teknologi" class="form-label">Teknologi</label>
+                <input type="text" class="form-control" id="teknologi" name="teknologi" value="{{ $usaha->teknologi }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="pekerja" class="form-label">Jumlah Pekerja</label>
+                <input type="number" class="form-control" id="pekerja" name="pekerja" value="{{ $usaha->pekerja }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="sertifikasi" class="form-label">Sertifikasi</label>
+                <input type="text" class="form-control" id="sertifikasi" name="sertifikasi" value="{{ $usaha->sertifikasi }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="tahun_berdiri" class="form-label">Tahun Berdiri</label>
+                <input type="number" class="form-control" id="tahun_berdiri" name="tahun_berdiri" value="{{ $usaha->tahun_berdiri }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{ $usaha->deskripsi }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="social_media" class="form-label">Media Sosial</label>
+                <input type="text" class="form-control" id="social_media" name="social_media" value="{{ $usaha->social_media }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="sosmed_accoutn" class="form-label">Akun Media Sosial</label>
+                <input type="text" class="form-control" id="sosmed_accoutn" name="sosmed_accoutn" value="{{ $usaha->sosmed_accoutn }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="url" class="form-control" id="website" name="website" value="{{ $usaha->website }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
         </fieldset>
+        <div class="table-responsive">
+            <table id="example1" class="table table-hover w-100">
+                <head>
+                    <th>Menu Name</th>
+                    <th>Type</th>
+                    <th>Parent</th>
+                    <th>Route Name</th>
+                    <th></th>
+                </head>
+                <tbody>
+                    @foreach($parents as $parent)
+                        <tr>
+                            <td>{{ $parent->name }}</td>
+                            <td>
+                                <table>
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Route</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($parent->subMenus as $sub)
+                                            <tr>
+                                                <td>{{ $sub->name }}</td>
+                                                <td>{{ $sub->type }}</td>
+                                                <td>{{ $sub->route_name }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>{{ $parent->parent_id ?? '' }}</td>
+                            <td>{{ $parent->route_name ?? '' }}</td>
+                            <td class="text-end">
+                                <a href="" style="margin-right: 10px;"><i class="fa fa-eye"></i> </a>
+                                <a href="" style="margin-right: 10px;"><i class='fa fa-edit'></i> </a>
+                                <a href="" style="margin-right: 10px;"><i class="fa fa-trash"> </i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>  
+        </div>
     </div>
     <div class="modal fade" id="subModal" name="subModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
@@ -178,7 +218,7 @@
             const iname = createEl('input', {class:'form-control', id:'sb-name', name:'sb-name', required:true});
             const iroute = createEl('input', {class:'form-control', id:'sb-route', name:'sb-route', required:true});
             const itype = createDropdown("sb-type",[{id:'link', name:'Link'}, {id:'dropdown', name:'Dropdown'}]);
-            let dataParent = [];
+            let dataParent = @json($parents);
             // dataParent = dataParent.json();
             const iparent = createDropdown("sb-parent",dataParent);
 

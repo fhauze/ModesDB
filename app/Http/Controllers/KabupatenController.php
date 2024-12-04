@@ -25,7 +25,7 @@ class KabupatenController extends Controller
     public function store(Request $request)
     {        
         $valid = Validator::make($request->all(),[
-            'name' => 'required',
+            'name' => 'required|unique',
             'kode' => 'required|unique',
             'provinsi_d' => 'required'
         ]);
@@ -118,7 +118,7 @@ class KabupatenController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'success',
-            'data' => $kabupatens,
+            'data' => $process,
             'message' => 'Success menyimpan data.'
         ]);
     }

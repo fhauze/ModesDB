@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('negara', App\Http\Controllers\NegaraController::class);
         Route::resource('provinsi', App\Http\Controllers\ProvinsiController::class);
         Route::resource('kabupaten', App\Http\Controllers\KabupatenController::class);
+        Route::resource('usaha', App\Http\Controllers\UsahaController::class);
     });
 });
 
@@ -35,7 +36,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('jenis/by-id/{id}', [App\Http\Controllers\JenisController::class, 'getByID'])->name('jenis.by-id');
         Route::get('jenis/all', [App\Http\Controllers\JenisController::class, 'all'])->name('jenis.all');
         Route::get('kategori/by-id/{id}', [App\Http\Controllers\KategoriController::class, 'getByID'])->name('jenis.by-id');
-
         //roles
         Route::get('roles/{id}/edits', [App\Http\Controllers\RoleController::class, 'editRole'])->name('roles.editRole');
         Route::post('roles/updates', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('roles.updateRole');

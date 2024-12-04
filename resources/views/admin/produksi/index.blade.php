@@ -4,7 +4,7 @@
     <div class="d-sm-flex justify-content-between">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item active" aria-current="page">Daftar Usaha</li>
+                <li class="breadcrumb-item active" aria-current="page">Menu</li>
             </ol>
         </nav>
     </div>
@@ -13,22 +13,18 @@
 @endsection
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="row mb-4">
-            <div class="col-md-12 p-0 ps-0 pr-1 d-flex justify-content-end">
-                <a class='btn border border-danger' href="{{route('adm.usaha.create')}}"> 
-                    <i class='fa fa-plus-circle'></i>
-                    <span class="m-2">Tambah</span>
-                </a>
-            </div>
-        </div>
+    <div class="d-flex justify-content-end mb-4">
+        <a class='btn border border-danger' href="{{route('adm.menu.create')}}"> 
+            <i class='fa fa-plus-circle'></i>
+            <span class="m-2">Tambah</span>
+        </a>
     </div>
     <div class="row">
-        <div class="row mb-4">
-            <div class="col-md-12 p-0 ps-0 pr-1">
-                <fieldset class="row form-fieldset m-1 gap-4">
+        <div class="row">
+            <div class="col-md-12 p-2 ps-0 pr-1">
+                <fieldset class="row form-fieldset m-1">
                     <legend>Filters</legend>
-                        <div class="parsley-select form-group col-3">
+                        <div class="parsley-select form-group col-2">
                             <label for="type">Jenis</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
@@ -37,7 +33,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="parsley-select form-group col-3">
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Kategori</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                @foreach($kategoris as $kateg)
+                                    <option value="{{$kateg['id']}}">{{$kateg['nama']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
                             <label for="type">Tahun</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
@@ -46,14 +51,33 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Produksi</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                @foreach($jenis as $type)
+                                    <option value="{{$type['id']}}">{{$type['nama']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Distribusi</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                @foreach($jenis as $type)
+                                    <option value="{{$type['id']}}">{{$type['nama']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    <!-- </div> -->
                 </fieldset>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 pd-2">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle table-usaha">
-                        <thead class="table-light">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead class="table-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Nama Usaha</th>
@@ -65,7 +89,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($datas as $usaha)
+                            @forelse ($datas as $usaha)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $usaha->nama }}</td>
@@ -90,7 +114,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data usaha.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -175,7 +203,6 @@
 
         //select2
         $('#jenis').select2({dropdownAutoWidth : true});
-        $('.table-usaha').DataTable({});
         
         document.addEventListener('click', function(event){
             let diss = event.target.closest('[data-dismiss="modal"]');
