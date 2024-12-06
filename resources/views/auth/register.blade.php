@@ -131,7 +131,11 @@
               <p class="tx-color-03 tx-16 mg-b-40">It's free to signup and only takes a minute.</p>
               <div class="form-group">
                 <label>Email address</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email address">
+                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email address"
+                value="{{old('email')}}">
+                @error('email') 
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
               <div class="form-group">
                 <div class="d-flex justify-content-between mg-b-5">
@@ -141,11 +145,13 @@
               </div>
               <div class="form-group">
                 <label>Firstname</label>
-                <input type="text" name="first" class="form-control" placeholder="Enter your firstname">
+                <input type="text" name="first" id="first" class="form-control" placeholder="Enter your firstname" 
+                value="{{old('first')}}">
               </div>
               <div class="form-group">
                 <label>Lastname</label>
-                <input type="text" name="last" class="form-control" placeholder="Enter your lastname">
+                <input type="text" name="last" id="last" class="form-control" placeholder="Enter your lastname" 
+                value="{{old('last')}}">
               </div>
               <div class="form-group tx-12">
                 By clicking <strong>Create an account</strong> below, you agree to our terms of service and privacy statement.

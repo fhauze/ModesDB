@@ -5,7 +5,7 @@
         <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-            <li class="breadcrumb-item"><a href="{{route('adm.menu.index')}}">Menu</a></li>
+            <li class="breadcrumb-item"><a href="{{route('adm.usaha.index')}}">Menu</a></li>
             <li class="breadcrumb-item active" aria-current="page">View Data</li>
             </ol>
         </nav>

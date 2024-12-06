@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -14,12 +15,15 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request['name'] = $request->first . ' ' . $request->last;
-        // dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
+        try{
+            $valid = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+            ]);
+        }catch(ValidationException $e){
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
         
         $user = User::create([
             'name' => $request->name,
@@ -37,6 +41,8 @@ class AuthController extends Controller
             dd($e);
         }
         $user = Auth::user()->load('person');
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         if(empty($user->person->profile) || !$user->person->profile->iscomplete){
             return redirect()->intended('/adm/person/'.$user->person->id . '/edit')->with([
                 'access_token' => $token,
@@ -45,7 +51,6 @@ class AuthController extends Controller
             ]);
         }
         
-        $token = $user->createToken('auth_token')->plainTextToken;
         return redirect()->intended('/adm/home')->with([
             'access_token' => $token,
             'token_type' => 'Bearer',

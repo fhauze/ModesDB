@@ -17,14 +17,26 @@ class UsahaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filterJenis = $request->get('jenis');
+        $filterTahun = $request->get('tahun');
+        $query = Usaha::query();
+        
+        if ($filterJenis) {
+            $query->where('jenis_id', $filterJenis);
+        }
+        if ($filterTahun) {
+            $query->where('tahun_berdiri', [$filterTahun]);
+        }
+
         return view('admin.usaha.index', [
-            'datas' => Usaha::all(),
+            'datas' => $query->get(),
             'jenis' => Jenis::all()->toArray(),
             'tahuns' => (new Usaha)->tahuns(),
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

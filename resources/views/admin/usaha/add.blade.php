@@ -5,13 +5,13 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item"><a href="{{route('adm.org.index')}}">Organisai</a></li>
+                <li class="breadcrumb-item"><a href="{{route('adm.usaha.index')}}">Usaha</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah Data</li>
                 </ol>
             </nav>
         </div>
         <div style="padding-right:0% !important">
-            <a href="{{route('adm.menu.index')}}" class="btn btn-primary btn-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kembali" >
+            <a href="{{route('adm.usaha.index')}}" class="btn btn-primary btn-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kembali" >
                 <i class="fa fa-arrow-left"></i>
             </a>
         </div>

@@ -123,30 +123,37 @@
                 <legend> Basic Data</legend>
                 <div class="row row-sm mg-b-4">
                     <input type="hidden" 
-                            class="form-control form-control-sm state" 
+                            class="form-control form-control-sm state @error('user_id') is-invalid @enderror" 
                             placeholder="user_id" 
                             name="user_id" 
+                            id="user_id" 
                             value="{{ old('user_id', $data->user_id  ?? '' ) }}">
+                            @error('user_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     <input type="hidden" 
-                            class="form-control form-control-sm state" 
+                            class="form-control form-control-sm state @error('person_id') is-invalid @enderror" 
                             placeholder="person_id" 
                             name="person_id" 
+                            id="person_id"
                             value="{{ old('user_id', $data->id  ?? '' ) }}">
+                            @error('person_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     <div class=" form-group">
                         <label for="nib">Nama</label>
                         <input type="text" 
-                            class="form-control form-control-sm state" 
+                            class="form-control form-control-sm state @error('Nama') is-invalid @enderror" 
                             placeholder="Nama" 
                             name="nama" 
+                            id="nama"
                             value="{{ old('nama', $data ? $data->nama :'' ) }}">
+                            @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class=" form-group" id="div-kelamin" aria-hidden="true">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select class="form-control form-control-md select2" name="jenis_kelamin">
+                        <select class="form-control form-control-md select2 @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" id="jenis_kelamin">
                             <option label="Pilih satu"></option>
                             <option value="l">Laki-Laki</option>
                             <option value="p">Perempuan</option>
                         </select>
+                        @error('jenis_kelamin') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="row row-sm mg-b-4 mt-4">
@@ -154,29 +161,32 @@
                         <label for="tanggal_lahir">Tgl Lahir</label>
                         <input 
                             type="text" 
-                            class="form-control form-control-sm datepicker" 
+                            class="form-control form-control-sm datepicker @error('tanggal_lahir') is-invalid @enderror" 
                             id="tanggal_lahir" 
                             name="tanggal_lahir" 
                             placeholder="Masukkan tanggal lahir" 
                             value="{{ old('tanggal_lahir', $data->tanggal_lahir ?? '') }}">
+                            @error('tanggal_lahir') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class=" mg-t-1 form-group">
                         <label for="alamat">Alamat</label>
                         <textarea 
-                            class="form-control form-control-sm" 
+                            class="form-control form-control-sm @error('alamat') is-invalid @enderror" 
                             rows="2" 
                             placeholder="Alamat sesuai tanda pengenal" 
-                            name="alamat" >{{ old('alamat', $data->alamat ?? '') }}</textarea>
+                            name="alamat" id="alamat">{{ old('alamat', $data->alamat ?? '') }}</textarea>
                             <div class="valid-feedback">Looks good!</div>
+                            @error('alamat') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="divider-text text-left "> Info Perusahaan </div>
                 <div class="row row-sm mg-b-4">
                     <div class=" form-group" id="div-kelamin" aria-hidden="true">
                         <label for="usaha_id">Perusahaan</label>
-                        <select class="form-control form-control-sm select2">
-                            <option label="Pilih satu">Perusahaan</option>
+                        <select class="form-control form-control-sm select2 @error('usaha_id') is-invalid @enderror" name="usaha_id" id="usaha_id">
+                            <!-- <option label="Pilih satu">Perusahaan</option> -->
                         </select>
+                        @error('usaha_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="divider-text text-left "> Keahlian </div>
@@ -184,10 +194,11 @@
                     <div class=" form-group" id="div-kelamin" aria-hidden="true">
                         <label for="sertifikasi">Sertifikasi</label>
                         <textarea 
-                            class="form-control form-control-sm" 
+                            class="form-control form-control-sm @error('sertifikasi') is-invalid @enderror" 
                             rows="4" 
                             placeholder="Tulis keterangan sertifikasi yang diikuti" 
-                            name="sertifikasi" >{{ old('sertifikasi') }}</textarea>
+                            name="sertifikasi" id="sertifikasi">{{ old('sertifikasi') }}</textarea>
+                            @error('sertifikasi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="divider-text "> Info Kontak</div>
@@ -195,27 +206,33 @@
                     <div class=" form-group">
                         <label for="no_telepon">Hp</label>
                         <input type="text" 
-                            class="form-control form-control-sm" 
+                            class="form-control form-control-sm @error('no_telepon') is-invalid @enderror" 
                             placeholder="contoh : +628111077" 
-                            name="no_telepon" 
+                            name="no_telepon"
+                            id="no_telepon" 
                             value="{{old('no_telepon', $data->no_telepon ?? '')}}">
+                            @error('no_telepon') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="row row-sm mg-b-4 mt-4">
                     <div class=" form-group">
                         <label for="email">Email</label>
                         <input type="email" 
-                            class="form-control form-control-sm" 
+                            class="form-control form-control-sm @error('email') is-invalid @enderror" 
                             placeholder="contoh : user@gmail.com" 
                             name="email" 
+                            id="email" 
                             value="{{old('email', $data->email ?? '')}}">
+                            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div> 
                 </div>
                 <div class="row row-sm mg-b-4 mt-4 mb-3">
                     <div class="col-mb-3">
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">Facebook @</span>
-                            <input type="text" class="form-control form-control-sm" name="fbid" aria-describedby="basic-addon3">
+                            <input type="text" class="form-control form-control-sm @error('fbid') is-invalid @enderror " 
+                            name="fbid" id="fbid" aria-describedby="basic-addon3">
+                            @error('fbid') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
                 </div>
@@ -223,14 +240,16 @@
                     <div class="col-mb-3 ">
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">Instagram @</span>
-                            <input type="text" class="form-control form-control-sm" name="igid" aria-describedby="basic-addon3">
+                            <input type="text" class="form-control form-control-sm @error('igid') is-invalid @enderror" 
+                            name="igid" id="igid" aria-describedby="basic-addon3">
+                            @error('igid') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
                 </div>
                 <div class="row pt-4">    
                     <div class="justify-centent-start">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a type="button" href="{{route('adm.org.index')}}" class="btn btn-secondary">Batal</a>
+                        {{-- <a type="button" href="{{route('adm.org.index')}}" class="btn btn-secondary">Batal</a> --}}
                     </div>
                 </div>
             </fieldset>

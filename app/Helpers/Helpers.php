@@ -49,26 +49,18 @@ if (!function_exists('generateMenu')) {
 
 
     if (!function_exists('userCan')) {
-        function userCan($moduleId, $permissionName)
+        function userCan(string $permission, int $userId = null)
         {
-            $user = Auth::user();
-            
+            $permission = \App\Models\Permission::where('name',$permission)->first();
+            $user =\App\Models\User::find(2);
+            // $user = $userId ? \App\Models\User::find($userId) : Auth::user();
+            $userPermissions = \App\Models\Permission::get()->toArray();
+            if(in_array($permission->name,$userPermissions)){}
             if (!$user) {
-                return false; // User belum login
+                return false;
             }
-    
-            // Ambil permission berdasarkan module dan permission name
-            $permission = Module::find($moduleId)
-                ->permissions()
-                ->where('name', $permissionName)
-                ->first();
-
-            if (!$permission) {
-                return false; // Permission tidak ditemukan
-            }
-    
-            // Periksa apakah user memiliki permission ini
-            return $user->permissions()->where('id', $permission->id)->exists();
+            dd([$user->can($permission), $permission, $user]);
+            return $user->can($permission);
         }
     }
 

@@ -34,7 +34,30 @@ class RoleController extends Controller
             }
         }
         
-        return view('admin.roles.index')->with(['users' => $users, 'roles' => $roles, 'permissions' => $permissions]);
+        // Module Roles
+        $datas = \App\Models\Module::with('permissions')->get();
+        $moduleRoles = \App\Models\Role::all();
+        $rolesArray = [];
+        foreach ($moduleRoles as $role) {
+            foreach ($datas as $data) {
+                foreach (['create', 'read', 'edit', 'delete'] as $permissionType) {
+                    $permission = $data->permissions->where('name', $permissionType)->first();
+                    $permissionId = $permission ? $permission->id : null;
+
+                    if ($permissionId) {
+                        $modulePermissions = $data->getPermissionsByRoleAndPermission($permissionId, $role->id);
+                        if ($modulePermissions->isNotEmpty()) {
+                            $rolesArray[$role->id][$data->id][] = $permissionType;
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('admin.roles.index')->with([
+            'users' => $users, 'roles' => $roles, 'permissions' => $permissions,
+            'datas' => $datas, 'roles' => $moduleRoles, 'rolesArray'=> $rolesArray
+        ]);
     }
 
     /**
@@ -74,7 +97,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::all();
         $user->syncRoles($request->roles); // Menyinkronkan roles yang dipilih
         $user->syncPermissions($request->permissions); // Menyinkronkan permissions yang dipilih
 

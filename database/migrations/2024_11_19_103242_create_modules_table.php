@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama modul, misal: "Post", "Comment", dll
+            $table->string('name');          
+            $table->string('slug')->unique();
+            $table->string('model')->nullable(); 
             $table->timestamps();
         });
     }

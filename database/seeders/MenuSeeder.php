@@ -105,11 +105,12 @@ class MenuSeeder extends Seeder
                 $st = [
                     ['name' => 'menu', 'display_name' => 'Pengaturan Menu', 'type' => 'link', 'route_name' => 'adm.menu.index'],
                     ['name' => 'jenis', 'display_name' => 'Jenis', 'type' => 'link', 'route_name' => 'adm.jenis.index'],
-                    ['name' => 'kategori', 'display_name' => 'Kategori', 'type' => 'link', 'route_name' => 'adm.jenis.index'],
-                    ['name' => 'negara', 'display_name' => 'Negara', 'type' => 'link', 'route_name' => 'adm.jenis.index'],
+                    ['name' => 'kategori', 'display_name' => 'Kategori', 'type' => 'link', 'route_name' => 'adm.kategori.index'],
+                    ['name' => 'negara', 'display_name' => 'Negara', 'type' => 'link', 'route_name' => 'adm.negara.index'],
                     ['name' => 'provinsi', 'display_name' => 'Provinsi', 'type' => 'link', 'route_name' => 'adm.provinsi.index'],
-                    ['name' => 'kabkota', 'display_name' => 'Kabupaten / Kota', 'type' => 'link', 'route_name' => 'adm.jenis.index'],
+                    ['name' => 'kabkota', 'display_name' => 'Kabupaten / Kota', 'type' => 'link', 'route_name' => 'adm.kabupaten.index'],
                     ['name' => 'user_akses', 'display_name' => 'User & Hak Akses', 'type' => 'link', 'route_name' => 'adm.roles.index'],
+                    ['name' => 'module', 'display_name' => 'Daftar Module', 'type' => 'link', 'route_name' => 'adm.modules.index'],
                 ];
                 foreach ($st as $s) {
                     SubMenu::create([

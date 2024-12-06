@@ -54,4 +54,7 @@
             <button type="submit" class="btn btn-primary">Tambah Permission</button>
         </form>
     </div>
+    
+@endsection
+@section('scripts')
 @endsection

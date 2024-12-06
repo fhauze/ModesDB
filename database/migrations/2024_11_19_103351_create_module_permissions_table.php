@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('module_permission', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
-            $table->foreignId('module_id')->constrained('modules'); // Hubungan dengan tabel modules
+            $table->foreignId('module_id')->constrained('modules');
             $table->timestamps();
         });
     }

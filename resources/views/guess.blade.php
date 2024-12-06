@@ -32,7 +32,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-    <title>DashForge Responsive Bootstrap 5 Dashboard Template</title>
+    <title>Indonesia Modest Fahsion</title>
 
     <!-- vendor css -->
     <link href="{{ url('lib/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">

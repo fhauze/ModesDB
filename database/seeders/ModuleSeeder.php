@@ -6,13 +6,15 @@ use Illuminate\Database\Seeder;
 use App\Models\Module;
 use App\Models\Permission;
 use App\Models\ModulePermission;
+use Spatie\Permission\Models\Role;
 
 class ModuleSeeder extends Seeder
 {
     public function run()
     {
-        $homeModule = Module::create(['name' => 'home']);
-        $dbModule = Module::create(['name' => 'dashboard']);
+        $homeModule = Module::create(['name' => 'users','slug' => 'users', 'model' => 'App\Models\User']);
+        $dbModule = Module::create(['name' => 'menu', 'slug' => 'menu','model' => 'App\Models\Menu']);
+        $roles = Role::all();
 
 
         // Add permissions for the 'home' module
@@ -28,7 +30,9 @@ class ModuleSeeder extends Seeder
             if(!$a){
                 $pr = Permission::create(['name' => $permissionData['name'],'guard_name' => $permissionData['guard_name']]);
                 if($pr){
-                    ModulePermission::create(['name' => $homeModule->name,'module_id' => $homeModule->id, 'permission_id' => $pr->id]);
+                    foreach($roles as $role){
+                        ModulePermission::create(['module_id' => $homeModule->id, 'permission_id' => $pr->id, 'role_id' => $role->id]);
+                    }
                 }
             }
             
@@ -45,7 +49,9 @@ class ModuleSeeder extends Seeder
             if(!$a){
                 $pr = Permission::create(['name' => $permissionData['name'],'guard_name' => $permissionData['guard_name']]);
                 if($pr){
-                    ModulePermission::create(['name' => $dbModule->name,'module_id' => $dbModule->id, 'permission_id' => $pr->id]);
+                    foreach($roles as $role){
+                        ModulePermission::create(['module_id' => $dbModule->id, 'permission_id' => $pr->id, 'role_id' => $role->id]);
+                    }
                 }
             }
         }

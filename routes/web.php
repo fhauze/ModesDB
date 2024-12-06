@@ -24,6 +24,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('provinsi', App\Http\Controllers\ProvinsiController::class);
         Route::resource('kabupaten', App\Http\Controllers\KabupatenController::class);
         Route::resource('usaha', App\Http\Controllers\UsahaController::class);
+        Route::resource('modules', App\Http\Controllers\ModuleController::Class);
+        // Module Permission
+        Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
+        Route::post('permission/modules/{role_id}/{module_id}', [App\Http\Controllers\PermissionController::class, 'ModulePermissionUpdate'])->name('permission.module.update');
+        // Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
+        // End Module Permission
     });
 });
 
