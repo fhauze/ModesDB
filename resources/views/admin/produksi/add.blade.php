@@ -38,6 +38,7 @@
                             <option value="{{$u->id}}" selected>{{$u->nama}}</option>
                         @endforeach
                     </select>
+                    <a href="{{route('adm.usaha.create')}}"><span>Klik disini untuk menambahkan Usaha.</span></a>
                 </div>
 
                 <div class="col-md-6 mb-3">

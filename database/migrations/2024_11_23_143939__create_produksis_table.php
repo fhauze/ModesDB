@@ -24,8 +24,8 @@ return new class extends Migration
             $table->integer('persentase_bahan_impor')->nullable();
             $table->timestamps();
 
-            $table->foreign('org_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->foreign('person_id')->references('id')->on('person')->onDelete('cascade');
+            // $table->foreign('org_id')->references('id')->on('organization')->onDelete('cascade');
+            // $table->foreign('person_id')->references('id')->on('person')->onDelete('cascade');
         });
     }
 

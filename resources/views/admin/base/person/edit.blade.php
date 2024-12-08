@@ -232,7 +232,7 @@
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">Facebook @</span>
                             <input type="text" class="form-control form-control-sm @error('fbid') is-invalid @enderror " 
-                            name="fbid" id="fbid" aria-describedby="basic-addon3" value="{{ old('fbid', $data->profile->fbid)}}">
+                            name="fbid" id="fbid" aria-describedby="basic-addon3" value="{{ old('fbid', $data->profile->fbid ?? '')}}">
                             @error('fbid') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon3">Instagram @</span>
                             <input type="text" class="form-control form-control-sm @error('igid') is-invalid @enderror" 
-                            name="igid" id="igid" aria-describedby="basic-addon3" value="{{ old('igid', $data->profile->igid)}}">
+                            name="igid" id="igid" aria-describedby="basic-addon3" value="{{ old('igid', $data->profile->igid ?? '')}}">
                             @error('igid') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>

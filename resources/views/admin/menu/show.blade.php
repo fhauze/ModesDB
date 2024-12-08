@@ -67,7 +67,7 @@
                     <tbody>
                         @foreach($data->subMenus as $sub)
                             <tr>
-                                <td>{{ $sub->name }}</td>
+                                <td>{{ $sub->display_name }}</td>
                                 <td>{{ $sub->type }}</td>
                                 <td>{{ $sub->route_name }}</td>
                                 <td class="text-end">

@@ -10,9 +10,19 @@ class DistribusiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.distribusi.index', ['datas' => \App\Models\Distribusi::all()]);
+        $datas = \App\Models\Distribusi::query();
+        if($request->has('jenis')){
+            $regex = "/[_\-\/\\\\]/";
+            $search = preg_replace($regex,' ',$request->input('jenis'));
+            $jenis = Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
+            if($jenis){
+                $datas->where('jenis_id', $jenis->id);
+            }
+        }
+        $datas = $datas->get();
+        return view('admin.distribusi.index', ['datas' => $datas]);
     }
 
     /**

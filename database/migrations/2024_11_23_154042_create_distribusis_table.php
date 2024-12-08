@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('jenis_id')->constrained('jenis');
             $table->string('jenis_distribusi')->nullable();
             $table->foreignId('negara_id')->constrained('negara')->nullable();
-            $table->foreignId('provinsi_id')->constrained('provinsi')->nullable();
+            $table->foreignId('provinsi_id')->constrained('provinsis')->nullable();
             $table->foreignId('kabkot_id')->constrained('kabupatens')->nullable();
             $table->integer('tahun');
             $table->decimal('volume', total:8,places:2 );

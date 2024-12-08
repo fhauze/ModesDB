@@ -41,22 +41,29 @@
       @endphp
         <ul class="nav nav-aside">
         @foreach ($menus as $category => $items)
-            <li class="nav-label">{{ $items['label'] }}</li>
+            <li class="nav-label">{{ $items['label']}}</li>
             @foreach ($items['submenus'] as $item)
                 @php
                 @endphp
                 <li class="nav-item">
-                    <a href="{{ isset($item['route']) ? route($item['route']) : '' }}" class="nav-link">
+                    <a href="{{ 
+                        isset($item['route']) 
+                        ? (
+                            str_contains(strtolower($items['label']), 'home') || str_contains(strtolower($items['label']), 'settings') 
+                            ? route($item['route']) 
+                            : route($item['route']) . '?jenis=' . urlencode($item['label'] ?? '')
+                        ) 
+                        : '#' 
+                        }}" class="nav-link">
                         <i data-feather="{{ $item['icon'] ?? '' }}"></i>
                         <span>{{ $item['label'] ?? '' }}</span>
                     </a>
-
                     {{-- Check if there are submenus --}}
                     @if (isset($item['subMenus']) && count($item['subMenus']) > 0)
                         <ul class="nav nav-submenu">
                             @foreach ($item['subMenus'] as $subMenu)
                                 <li class="nav-item">
-                                    <a href="{{ route($subMenu['route']) ?? '' }}" class="nav-link">
+                                    <a href="{{ route($subMenu['route'] ?? '#').'?jenis='.urlencode($subMenu['name'] ?? '') }}" class="nav-link">
                                         <i data-feather="{{ $subMenu['icon'] ?? '' }}"></i>
                                         <span>{{ $subMenu['label'] ?? '' }}</span>
                                     </a>

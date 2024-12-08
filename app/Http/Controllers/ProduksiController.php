@@ -11,9 +11,23 @@ use Exception;
 
 class ProduksiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.produksi.index', ['datas' => Produksi::all()]);
+        $datas = \App\Models\Produksi::query();
+        if($request->has('jenis')){
+            $regex = "/[_\-\/\\\\]/";
+            $search = preg_replace($regex,' ',$request->input('jenis'));
+            
+            $jenis = Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
+            
+            if($jenis){
+                $datas->where('jenis_id', $jenis->id);
+            }
+        }
+        
+        $datas = $datas->get();
+        
+        return view('admin.produksi.index', ['datas' => $datas]);
     }
 
     public function mode(Request $request, string $mode)

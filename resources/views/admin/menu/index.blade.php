@@ -35,7 +35,7 @@
                         <?php $num =1; ?>
                         @foreach($menus as $menu)
                             <tr>
-                                <td>{{$menu->name}}</td>
+                                <td>{{$menu->display_name}}</td>
                                 <td>{{$menu->type}}</td>
                                 <td>{{$menu->parent_id ?? ''}}</td>
                                 <td>{{$menu->route_name ?? ''}}</td>
@@ -60,7 +60,7 @@
                                             @foreach($menu->subMenus as $sub)
                                                 <tr>
                                                     <td>{{$i}}</td>
-                                                    <td>{{ $sub->name }}</td>
+                                                    <td>{{ $sub->display_name }}</td>
                                                     <td>{{ $sub->type }}</td>
                                                     <td>{{ $sub->route_name }}</td>
                                                     <td class="text-start">

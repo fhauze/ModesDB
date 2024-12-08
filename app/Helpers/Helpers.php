@@ -19,6 +19,7 @@ if (!function_exists('generateMenu')) {
                     ->whereIn('role_id', $userRoleIds);
             })
             ->with('subMenus')
+            ->orderBy('id')
             ->get();
 
         $sidebarMenu = [];

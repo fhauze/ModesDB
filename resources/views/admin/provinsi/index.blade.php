@@ -144,6 +144,7 @@
         let _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         $('#negara_id').select2({
+            dropdownParent: $('#modalForm'),
             placeholder: "Pilih negara",
             allowClear: true // Opsi untuk membersihkan pilihan
         });

@@ -24,14 +24,14 @@ class MenuSeeder extends Seeder
                 'parent_id' => null,
             ],
             [
-                'name' => 'pertanian_peternakan',
-                'display_name' => 'Pertanian dan Peternakan',
+                'name' => 'produksi',
+                'display_name' => 'Produksi',
                 'type' => 'link',
                 'parent_id' => null,
             ],
             [
-                'name' => 'industri',
-                'display_name' => 'Industri',
+                'name' => 'distribusi',
+                'display_name' => 'Distribusi',
                 'type' => 'link',
                 'parent_id' => null,
             ],
