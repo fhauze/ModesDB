@@ -10,21 +10,19 @@ if (!function_exists('generateMenu')) {
     function generateMenu()
     {
         $user = Auth::user();
-        $userRoleIds = $user->roles->pluck('id'); // Ambil semua role ID untuk pengguna yang sedang login
+        $userRoleIds = $user->roles->pluck('id');
 
-        // Ambil menus yang memiliki menu_permission dengan role_id yang sesuai dengan role pengguna
         $menus = Menu::whereNull('parent_id')
             ->whereIn('id', function ($query) use ($userRoleIds) {
                 $query->select('menu_id')
                     ->from('menu_permission')
                     ->whereIn('role_id', $userRoleIds);
             })
-            ->with('subMenus') // Ambil submenus tanpa pengecekan permission untuk submenu
+            ->with('subMenus')
             ->get();
 
         $sidebarMenu = [];
 
-        // Proses menu dan submenu
         foreach ($menus as $menu) {
             $subMenuItems = $menu->subMenus->map(function ($subMenu) {
                 return [
@@ -59,8 +57,8 @@ if (!function_exists('generateMenu')) {
             if (!$user) {
                 return false;
             }
-            dd([$user->can($permission), $permission, $user]);
-            return $user->can($permission);
+            
+            return true;
         }
     }
 

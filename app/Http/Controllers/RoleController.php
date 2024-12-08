@@ -23,7 +23,7 @@ class RoleController extends Controller
         $users = User::all();
         $roles = Role::all();
         $permissions = Permission::all();
-
+        
         if(!empty($users)){
             foreach($users as $u){
                 $roleadd = [];

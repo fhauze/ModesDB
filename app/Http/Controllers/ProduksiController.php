@@ -4,38 +4,74 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usaha;
+use App\Models\Produksi;
+use App\Models\Jenis;
+use App\Models\Kategori;
 use Exception;
 
 class ProduksiController extends Controller
 {
     public function index()
     {
-        try {
-            $usaha = Usaha::all();
-            return response()->json($usaha);
-        } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to retrieve data. Please try again.'], 500);
-        }
+        return view('admin.produksi.index', ['datas' => Produksi::all()]);
     }
+
+    public function mode(Request $request, string $mode)
+    {
+        $validModes = ['create', 'ubah', 'view'];
+        $data = null;
+        $jenis = Jenis::all();
+        $usaha = Usaha::all();
+        $kategori = Kategori::all();
+        if (!in_array($mode, $validModes)) {
+            abort(404, 'Mode tidak ditemukan');
+        }
+        // dd([$request->all(), $mode, in_array($mode, $validModes)]);
+        if(in_array($mode, ['ubah','view'])){
+            if($request->has('id')){
+                $data = \App\Models\Produksi::select('produksi.*', 'tahun as th')->where('id',$request->input('id'))->first();
+            }
+        }
+        
+        $viewName = match($mode) {
+            'create' => 'admin.produksi.add',
+            'ubah' => 'admin.produksi.edit',
+            'view' => 'admin.produksi.show',
+            default => abort(404, 'View tidak ditemukan'),
+        };
+        return view('admin.produksi.add', [
+            'usaha' => $usaha, 
+            'mode' => $mode, 
+            'data' => $data, 
+            'jenis' => $jenis, 
+            'kategoris' => $kategori
+        ]);
+    }
+
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_usaha' => 'required|string',
-            'nomor_telepon' => 'required|string',
-            'email' => 'required|email',
-            'ig_fb' => 'nullable|string',
-            'alamat' => 'required|string',
-            'tahun_memulai_usaha' => 'required|date',
-            'nib' => 'required|string|unique:organization,nib',
-            'pekerja' => 'required|integer'
-        ]);
-
+        // dd($request->all());
+        try{
+            $validated = $request->validate([
+                'usaha_id' => 'required|string',
+                'jenis_id' => 'required|string',
+                'kategori_id' => 'required|integer',
+                'tahun' => 'nullable|string',
+                'pekerja' => 'nullable|integer',
+                'vol_produksi' => 'required|integer',
+                'bahan_baku' => 'required|string',
+                'persentase_bahan_lokal' => 'nullable|integer',
+                'persentase_bahan_impor' => 'nullable|integer'
+            ]);
+        }catch(Exception $e){
+            dd($e);
+        }
         try {
-            $org = Organization::create($validated);
-            return response()->redirect()->with(['message' => 'Data successfully created.', 'data' => $org], 201);
+            $org = Produksi::create($validated);
+            return redirect()->route('adm.produksi.index');
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to create data. Please try again.'], 500);
+            return response()->json(['message' => 'Failed to create data. Please try again.' . $e], 500);
         }
     }
 
@@ -52,22 +88,23 @@ class ProduksiController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama_usaha' => 'sometimes|required|string',
-            'nomor_telepon' => 'sometimes|required|string',
-            'email' => 'sometimes|required|email',
-            'ig_fb' => 'sometimes|nullable|string',
-            'alamat' => 'sometimes|required|string',
-            'tahun_memulai_usaha' => 'sometimes|required|date',
-            'nib' => 'sometimes|required|string|unique:usaha,nib,' . $id,
-            'pekerja' => 'sometimes|required|integer'
+            'usaha_id' => 'required|string',
+            'jenis_id' => 'required|string',
+            'kategori_id' => 'required|integer',
+            'tahun' => 'nullable|string',
+            'pekerja' => 'nullable|integer',
+            'vol_produksi' => 'required|integer',
+            'bahan_baku' => 'required|string',
+            'persentase_bahan_lokal' => 'nullable|integer',
+            'persentase_bahan_impor' => 'nullable|integer'
         ]);
 
         try {
-            $usaha = Usaha::findOrFail($id);
-            $usaha->update($validated);
-            return response()->json(['message' => 'Data successfully updated.', 'data' => $usaha]);
+            $produksi = Produksi::findOrFail($id);
+            $produksi->update($validated);
+            return redirect()->route('adm.produksi.index');
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to update data. Please try again.'], 500);
+            return response()->json(['message' => 'Failed to update data. Please try again.'.$e], 500);
         }
     }
 

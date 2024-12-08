@@ -8,6 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\Organization;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
+use App\Models\Usaha;
 
 class Usaha extends Model
 {
@@ -17,7 +18,7 @@ class Usaha extends Model
     protected $fillable = [
         'nama',
         'alamat',
-        'jenis_id',
+        // 'jenis_id', // produksi
         'teknologi',
         'pekerja',
         'sertifikasi',
@@ -30,7 +31,7 @@ class Usaha extends Model
         'kabkot_id',
         'org_id',
         'person_id',
-        'kategori_id'
+        //'kategori_id' // sudah ada di produksi
     ];
 
     public function organzation(){
@@ -60,6 +61,10 @@ class Usaha extends Model
             ->from('usaha')
             ->get()
             ->toArray();
+    }
+
+    public function jenisUsaha(){
+        return $this->belongsTo(Usaha::class, 'jenis_id');
     }
 
     public function provinsi(){

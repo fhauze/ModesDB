@@ -14,7 +14,6 @@
 </div>
 </hr>
 @endsection
-<button class="btn btn-primary" data-toggle="modal" data-target="#addModuleModal">Tambah Module</button>
 @section('content')
 <div class="container-fluid">
     <h4 class="text-start">Daftar Modules</h4>
@@ -42,12 +41,12 @@
                     <td>{{ $module->slug }}</td>
                     <td>{{ $module->model }}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#editModuleModal" 
+                        <button class="btn border-warning btn-icon btn-edit" data-toggle="modal" data-target="#editModuleModal" 
                             data-module="{{ $module }}">Ubah</button>
                         <form action="{{ route('adm.modules.destroy', $module->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus module ini?')">Hapus</button>
+                            <button type="submit" class="btn border-danger btn-icon btn-sm" onclick="return confirm('Hapus module ini?')">Hapus</button>
                         </form>
                     </td>
                 </tr>
@@ -120,8 +119,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-icon" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-icon">Simpan Perubahan</button>
                 </div>
             </div>
         </form>

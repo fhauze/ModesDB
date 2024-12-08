@@ -9,7 +9,8 @@ class Jenis extends Model
 {
     protected $fillable = [
         'nama',
-        'deskripsi'
+        'deskripsi',
+        'industri_id'
     ];
 
     public function kategori(){

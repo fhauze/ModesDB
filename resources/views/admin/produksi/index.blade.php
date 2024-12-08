@@ -14,7 +14,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-end mb-4">
-        <a class='btn border border-danger' href="{{route('adm.menu.create')}}"> 
+        <a class='btn border border-danger' href="{{ route('adm.produksi.mode', ['mode' => 'create']) }}"> 
             <i class='fa fa-plus-circle'></i>
             <span class="m-2">Tambah</span>
         </a>
@@ -28,45 +28,35 @@
                             <label for="type">Jenis</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                @foreach($jenis as $type)
-                                    <option value="{{$type['id']}}">{{$type['nama']}}</option>
-                                @endforeach
+                               
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Kategori</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                @foreach($kategoris as $kateg)
-                                    <option value="{{$kateg['id']}}">{{$kateg['nama']}}</option>
-                                @endforeach
+                                
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Tahun</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                @foreach($tahuns as $tahun)
-                                    <option value="{{$tahun['tahun']}}">{{$tahun['tahun']}}</option>
-                                @endforeach
+                                
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Produksi</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                @foreach($jenis as $type)
-                                    <option value="{{$type['id']}}">{{$type['nama']}}</option>
-                                @endforeach
+                                
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Distribusi</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                @foreach($jenis as $type)
-                                    <option value="{{$type['id']}}">{{$type['nama']}}</option>
-                                @endforeach
+                                
                             </select>
                         </div>
                     <!-- </div> -->
@@ -81,35 +71,42 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Usaha</th>
-                                <th>Alamat</th>
-                                <th>Provinsi</th>
-                                <th>Kab/Kota</th>
-                                <th>Tahun Berdiri</th>
-                                <th>Aksi</th>
+                                <th>Jenis Usaha</th>
+                                <th>Kategori</th>
+                                <th>Jml. Pekeraja</th>
+                                <th>Vol. Produksi</th>
+                                <th>Bahan Baku</th>
+                                <th>Bahan Impor (%)</th>
+                                <th>Bahan Lokal (%)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($datas as $usaha)
+                            @forelse ($datas as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $usaha->nama }}</td>
-                                    <td>{{ $usaha->alamat }}</td>
-                                    <td>{{ $usaha->provinsi_id }}</td>
-                                    <td>{{ $usaha->kabkot_id }}</td>
-                                    <td>{{ $usaha->tahun_berdiri ?? '-' }}</td>
+                                    <td>{{ $data->jenis->nama ?? ''}}</td>
+                                    <td>{{ $data->kategori->nama ?? ''}}</td>
+                                    <td>{{ $data->pekerja ?? ''}}</td>
+                                    <td>{{ $data->vol_produksi ?? ''}}</td>
+                                    <td>{{ $data->bahan_baku ?? '-' }}</td>
+                                    <td>{{ $data->persentase_bahan_lokal ?? '-' }}</td>
+                                    <td>{{ $data->persentase_bahan_impor ?? '-' }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
+                                            <a href="{{ route('adm.produksi.mode', ['mode' => 'view']) }}?id={{$data->id}}" class="btn text-success btn-sm" title="Edit">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                             <!-- Edit Button -->
-                                            <a href="{{ route('usaha.edit', $usaha) }}" class="btn btn-warning btn-sm" title="Edit">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a href="{{ route('adm.produksi.mode', ['mode' => 'ubah']) }}?id={{$data->id}}" class="btn text-warning btn-sm" title="Edit">
+                                                <i class="fa fa-edit"></i>
                                             </a>
                                             <!-- Delete Button -->
-                                            <form action="{{ route('usaha.destroy', $usaha) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus usaha ini?')">
+                                            <form action="{{ route('adm.produksi.destroy', $data->usaha) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus usaha ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+                                                <a type="submit" class="btn btn-icon btn-sm text-danger" title="Hapus">
+                                                    <i class="fa fa-trash"> </i>
+                                                </a>
                                             </form>
                                         </div>
                                     </td>

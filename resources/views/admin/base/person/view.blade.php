@@ -248,10 +248,7 @@
                     </div>
                 </div>
                 <div class="row pt-4">    
-                    <div class="justify-centent-start">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        {{-- <a type="button" href="{{route('adm.org.index')}}" class="btn btn-secondary">Batal</a> --}}
-                    </div>
+                    
                 </div>
             </fieldset>
             </form>
@@ -276,20 +273,6 @@
             todayBtn: "linked",  
             weekStart: 1,  
         });
-        
-        // function createDropdown(name,options) {
-        //     const select = document.createElement('select');
-        //     select.setAttribute('class','form-control')
-        //     select.setAttribute('name',name)
-        //     select.setAttribute('id',name)
-        //     options.forEach(optionData => {
-        //         const option = document.createElement('option');
-        //         option.value = optionData.id;
-        //         option.textContent = optionData.name;
-        //         select.appendChild(option);
-        //     });
-        //     return select;
-        // }
     });
 </script>
 @endsection

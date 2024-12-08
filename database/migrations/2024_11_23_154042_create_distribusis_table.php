@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('distribusis', function (Blueprint $table) {
             $table->id();
             $table->string('deskripsi');
-            $table->foreignId('category_id')->constrained('kategori');
+            $table->foreignId('kategory_id')->constrained('kategori');
             $table->foreignId('usaha_id')->constrained('usaha');
-            $table->string('jenis_distribusi');
-            $table->foreignId('kabkot_id')->constrained('kabupatens');
-            $table->foreignId('negara_id')->constrained('negara');
+            $table->foreignId('jenis_id')->constrained('jenis');
+            $table->string('jenis_distribusi')->nullable();
+            $table->foreignId('negara_id')->constrained('negara')->nullable();
+            $table->foreignId('provinsi_id')->constrained('provinsi')->nullable();
+            $table->foreignId('kabkot_id')->constrained('kabupatens')->nullable();
+            $table->integer('tahun');
             $table->decimal('volume', total:8,places:2 );
-            $table->string('satuan');
+            $table->string('satuan')->nullable();
             $table->timestamps();
         });
     }

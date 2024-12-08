@@ -43,7 +43,9 @@ class JenisController extends Controller
                 'message' => 'data tidak valid'
             ]);
         }
-
+        if(!$request->has('industri_id')){
+            $request['industri_id'] = 1;
+        }
         $proc = Jenis::create($request->all());
         if(!$proc){
             return back()->With([

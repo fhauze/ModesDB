@@ -58,6 +58,10 @@
       .select2-selection {
         height: 34px !important;
       }
+
+      .yearpicker-container {
+        z-index: 2001;
+      }
     </style>
     @yield('styles')
   </head>

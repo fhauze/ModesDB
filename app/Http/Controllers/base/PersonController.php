@@ -18,6 +18,7 @@ class PersonController extends Controller
     public function edit($id){
         $data = Person::find($id);
         $usaha = Usaha::all();
+        
         return view('admin.base.person.edit', compact('data','usaha'));
     }
     public function update(Request $request, $id){
@@ -60,5 +61,12 @@ class PersonController extends Controller
             $user->assignRole('contributor');
             return redirect()->route('adm.home');
         }
+    }
+
+    public function show($id){
+        $data = Person::find($id);
+        $usaha = Usaha::all();
+        
+        return view('admin.base.person.view', compact('data','usaha'));
     }
 }

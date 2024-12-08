@@ -14,168 +14,68 @@
     @endsection
     <div class="container">
         <fieldset class="form-fieldset">
-            <form id="formAdd" class="needs-validation was-validated" novalidate action="{{route('adm.menu.store')}}" method="POST">
-                <input type="hidden" name="id" id="id">
-                <div class="row row-sm mg-b-10">
-                    <div class="col-sm-6 form-group">
-                        <label for="name">Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder=" @error('nib') {{ $message }} @else {{'Menu name'}} @enderror" 
-                            name="name"
-                            id="name"
-                            value="{{old('name', $data->name)}}"
-                            required>
-                    </div>
-                    <div class="parsley-select col-sm-6 form-group">
-                        <input type="hidden" name="idme" id="idme" value="{{$data->id}}"/>
-                        <label for="type">Type</label>
-                        <select class="form-select" name="type" id="type" required>
-                            <option value="" selected>Choose one</option>
-                            @foreach($types as $type)
-                                <option value="{{$type['value']}}" {{$type['value'] == $data->type ? 'selected' :''}}>{{$type['name']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">{{ $usaha->nama }}</h3>
                 </div>
-                <div class="justify-content-between btn-add-sub" hidden="hidden">
-                    <input 
-                        type="hidden" 
-                        placeholder="" 
-                        name="name"
-                        id="name"
-                        value="1">
-                    <a class="btn btn-primary btn-block" name="btn-simpan">Sub Menu</a>
-                </div>
-                <hr/>                
-            </form>
-        </fieldset>
-        <div class="divider-text">Sub Menu</div>
-        <fieldset class="form-fieldset">
-            <legend>Sub Menu</legend>
-            <div class="d-flex justify-content-end mb-4">
-                <a class='btn border border-danger modal-tambah-sub' href="#"> <i class='fa fa-plus-circle'></i><span class="m-2">Tambah</span></a>
-            </div>
-            <div class="table-responsive">
-                <table id="example1" class="table table-bordered w-100">
-                    <thead>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Route</th>
-                    </thead>
-                    <tbody>
-                        @foreach($data->subMenus as $sub)
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <thead>
+                            <th style="width: 200px;">Nama Usaha:</th>
+                            <th>Alamat:</th>
+                            <th>Provinsi:</th>
+                            <th>Kab/Kota:</th>
+                            <th>Teknologi:</th>
+                            <th>Pekerja:</th>
+                            <th>Sertifikasi:</th>
+                            <th>Tahun Berdiri:</th>
+                            <th>Deskripsi:</th>
+                            <th>Social Media:</th>
+                            <th>Akun Sosial Media:</th>
+                        </thead>
+                        <tbody>
+                            @foreach($datas as $data)
                             <tr>
-                                <td>{{ $sub->name }}</td>
-                                <td>{{ $sub->type }}</td>
-                                <td>{{ $sub->route_name }}</td>
-                                <td class="text-end">
-                                    <a href="#" style="margin-right: 10px;" id="btn-sub-edit" data-id="{{$sub->id}}"><i class='fa fa-edit'></i> </a>
-                                    <a href="#" style="margin-right: 10px;" id="btn-sub-delete" data-id="{{$sub->id}}" data-nama="{{$data->name}}"><i class="fa fa-trash"> </i></a>
+                                <td>{{ $usaha->nama }}</td>
+                                <td>{{ $usaha->alamat }}</td>
+                                <td>{{ $usaha->provinsi_id }}</td>
+                                <td>{{ $usaha->kabkot_id }}</td>
+                                <td>{{ $usaha->teknologi ?? '-' }}</td>
+                                <td>{{ $usaha->pekerja }}</td>
+                                <td>{{ $usaha->sertifikasi ?? 'Tidak Ada' }}</td>
+                                <td>{{ $usaha->tahun_berdiri ?? '-' }}</td>
+                                <td>{{ $usaha->deskripsi ?? 'Tidak Ada' }}</td>
+                                <td>{{ $usaha->social_media ?? 'Tidak Ada' }}</td>
+                                <td>{{ $usaha->sosmed_accoutn ?? '-' }}</td>
+                                <td>
+                                    <th>Website:</th>
+                                    <td>
+                                        @if ($usaha->website)
+                                            <a href="{{ $usaha->website }}" target="_blank" class="text-decoration-none">
+                                                {{ $usaha->website }}
+                                            </a>
+                                        @else
+                                            Tidak Ada
+                                        @endif
+                                    </td>
                                 </td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>     
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-end">
+                    <!-- Back Button -->
+                    <a href="{{ route('usaha.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Kembali
+                    </a>
+                    <!-- Edit Button -->
+                    <a href="{{ route('usaha.edit', $usaha) }}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                </div>
             </div>
         </fieldset>
-    </div>
-
-    <div class="modal fade" id="subModal" name="subModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-        <div class="modal-content">
-          <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-            <a href="#" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </a>
-            <div class="media align-items-center">
-              <span class="tx-color-03 d-none d-sm-block"><i data-feather="credit-card" class="wd-60 ht-60"></i></span>
-              <div class="media-body mg-sm-l-20">
-                <h4 class="tx-18 tx-sm-20 mg-b-2">Enter Sub-menu</h4>
-                <p class="tx-13 tx-color-03 mg-b-0">Enter all required information in these field.</p>
-              </div>
-            </div><!-- media -->
-          </div><!-- modal-header -->
-          <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
-            <form id ="modal-sub-menu">
-            <div class="row row-sm mg-b-10 sb-div">
-                <div class="col-sm-12 form-group a-p-name">
-                    <label for="sub_name">Name</label>
-                </div>
-                <div class="col-sm-12 form-group a-p-type">
-                    <label for="sub_name">Type</label>
-                </div>
-                <div class="parsley-select col-sm-12 form-group a-p-parent">
-                    <label for="parent">Parent menu</label>
-                    <select class="form-control" name="parent_id" id="parent_id" disabled>
-                        <option value="{{$data->id}}">{{$data->name}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-12 form-group a-p-route">
-                    <label for="route_name">Route Name</label>
-                </div>
-                 <div class="justify-content-between a-p-btn">
-                    {{--<button type="submit" class="btn btn-primary btn-block">Simpan</button>
-                    <a href="{{route('adm.org.index')}}" type="button" class="btn btn-secondary btn-block">Batal</a>--}}
-                </div> 
-            </div>
-            </form>
-          </div><!-- modal-body -->
-          <div class="modal-footer pd-x-20 pd-y-15">
-            <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary modal-add-btn-save">Save</button>
-          </div>
-        </div><!-- modal-content -->
-      </div><!-- modal-dialog -->
-    </div>
-    <div class="modal fade" id="subModalEdit" name="subModalEdit" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-        <div class="modal-content">
-          <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-            <a href="#" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </a>
-            <div class="media align-items-center">
-              <span class="tx-color-03 d-none d-sm-block"><i data-feather="credit-card" class="wd-60 ht-60"></i></span>
-              <div class="media-body mg-sm-l-20">
-                <h4 class="tx-18 tx-sm-20 mg-b-2">Enter Sub-menu</h4>
-                <p class="tx-13 tx-color-03 mg-b-0">Enter all required information in these field.</p>
-              </div>
-            </div><!-- media -->
-          </div><!-- modal-header -->
-          <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
-            <form id ="modal-menu">
-                <input type="hidden" name="editId">
-            <div class="row row-sm mg-b-10 sb-div">
-                <div class="col-sm-12 form-group p-name">
-                    <label for="sub_name">Name</label>
-                </div>
-                <div class="col-sm-12 form-group p-type">
-                    <label for="sub_name">Type</label>
-                </div>
-                <div class="parsley-select col-sm-12 form-group p-parent">
-                    <label for="parent">Parent menu</label>
-                    <select class="form-control" name="e-parent_id" id="e-parent_id" disabled>
-                        <option value="{{$data->id}}">{{$data->name}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-12 form-group p-route">
-                    <label for="route_name">Route Name</label>
-                </div>
-                 <div class="justify-content-between p-btn">
-                    {{--<button type="submit" class="btn btn-primary btn-block">Simpan</button>
-                    <a href="{{route('adm.org.index')}}" type="button" class="btn btn-secondary btn-block">Batal</a>--}}
-                </div> 
-            </div>
-            </form>
-          </div>
-          <div class="modal-footer pd-x-20 pd-y-15">
-            <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary modal-edit-btn-save">Save</button>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="modal fade" id="subModalDelete" name="subModalDelete" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">

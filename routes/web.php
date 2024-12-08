@@ -25,11 +25,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('kabupaten', App\Http\Controllers\KabupatenController::class);
         Route::resource('usaha', App\Http\Controllers\UsahaController::class);
         Route::resource('modules', App\Http\Controllers\ModuleController::Class);
-        // Module Permission
+        Route::resource('produksi', App\Http\Controllers\ProduksiController::Class);
+        Route::resource('distribusi', App\Http\Controllers\DistribusiController::Class);
+        Route::get('produksi/mode/{mode}', [App\Http\Controllers\ProduksiController::Class, 'mode'])->name('produksi.mode');
+        Route::get('distribusi/mode/{mode}', [App\Http\Controllers\DistribusiController::Class, 'mode'])->name('distribusi.mode');
+        /** 
+         * Permissioon
+         * Roles dan Module
+        */
         Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
         Route::post('permission/modules/{role_id}/{module_id}', [App\Http\Controllers\PermissionController::class, 'ModulePermissionUpdate'])->name('permission.module.update');
         // Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
-        // End Module Permission
+        
     });
 });
 
@@ -60,14 +67,7 @@ Route::post('admin/roles/{role}/permissions/{module}', [App\Http\Controllers\Rol
 
 use App\Http\Controllers\PermissionController;
 
-// Route untuk halaman index permissions
 Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
-
-// Route untuk halaman edit permission
 Route::get('permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
-
-// Route untuk menyimpan perubahan permission
 Route::put('permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
-
-// Route untuk menambah permission
 Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');

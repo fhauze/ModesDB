@@ -18,17 +18,17 @@
         </div>
         <div class="aside-loggedin-user">
           <a href="#loggedinMenu" class="d-flex align-items-center justify-content-between mg-b-2" data-bs-toggle="collapse">
-            <h6 class="tx-semibold mg-b-0">Katherine Pechon</h6>
+            <h6 class="tx-semibold mg-b-0">{{Auth::user()->name}}</h6>
             <i data-feather="chevron-down"></i>
           </a>
-          <p class="tx-color-03 tx-12 mg-b-0">Administrator</p>
+          <p class="tx-color-03 tx-12 mg-b-0">{{Auth::user()->roles()->first()->name}}</p>
         </div>
         <div class="collapse" id="loggedinMenu">
           <ul class="nav nav-aside mg-b-0">
-            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="edit"></i> <span>Edit Profile</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="user"></i> <span>View Profile</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="settings"></i> <span>Account Settings</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="help-circle"></i> <span>Help Center</span></a></li>
+            <li class="nav-item"><a href="{{ route('adm.person.edit',Auth::user()->person->id) }}" class="nav-link"><i data-feather="edit"></i> <span>Edit Profile</span></a></li>
+            <li class="nav-item"><a href="{{ route('adm.person.show', Auth::user()->person->id) }}" class="nav-link"><i data-feather="user"></i> <span>View Profile</span></a></li>
+            {{-- <li class="nav-item"><a href="#" class="nav-link"><i data-feather="settings"></i> <span>Account Settings</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i data-feather="help-circle"></i> <span>Help Center</span></a></li> --}}
           </ul>
         </div>
       </div>
@@ -39,36 +39,36 @@
       @php
           $menus = generateMenu();
       @endphp
-      <ul class="nav nav-aside">
-          @foreach ($menus as $category => $items)
-              <li class="nav-label">{{ $items['label'] }}</li>
-              @foreach ($items['submenus'] as $item)
-                  @php
-                  @endphp
-                  <li class="nav-item">
-                      <a href="{{ isset($item['route']) ? route($item['route']) : '' }}" class="nav-link">
-                          <i data-feather="{{ $item['icon'] ?? '' }}"></i>
-                          <span>{{ $item['label'] ?? '' }}</span>
-                      </a>
+        <ul class="nav nav-aside">
+        @foreach ($menus as $category => $items)
+            <li class="nav-label">{{ $items['label'] }}</li>
+            @foreach ($items['submenus'] as $item)
+                @php
+                @endphp
+                <li class="nav-item">
+                    <a href="{{ isset($item['route']) ? route($item['route']) : '' }}" class="nav-link">
+                        <i data-feather="{{ $item['icon'] ?? '' }}"></i>
+                        <span>{{ $item['label'] ?? '' }}</span>
+                    </a>
 
-                      {{-- Check if there are submenus --}}
-                      @if (isset($item['subMenus']) && count($item['subMenus']) > 0)
-                          <ul class="nav nav-submenu">
-                              @foreach ($item['subMenus'] as $subMenu)
-                                  <li class="nav-item">
-                                      <a href="{{ route($subMenu['route']) ?? '' }}" class="nav-link">
-                                          <i data-feather="{{ $subMenu['icon'] ?? '' }}"></i>
-                                          <span>{{ $subMenu['label'] ?? '' }}</span>
-                                      </a>
-                                  </li>
-                              @endforeach
-                          </ul>
-                      @endif
-                  </li>
-              @endforeach
-              <hr />
-          @endforeach
-      </ul>
+                    {{-- Check if there are submenus --}}
+                    @if (isset($item['subMenus']) && count($item['subMenus']) > 0)
+                        <ul class="nav nav-submenu">
+                            @foreach ($item['subMenus'] as $subMenu)
+                                <li class="nav-item">
+                                    <a href="{{ route($subMenu['route']) ?? '' }}" class="nav-link">
+                                        <i data-feather="{{ $subMenu['icon'] ?? '' }}"></i>
+                                        <span>{{ $subMenu['label'] ?? '' }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @endforeach
+            <hr />
+        @endforeach
+        </ul>
   @php
     $roleName = auth()->user()->getRoleNames()->first(); 
     $menus = generateSidebarMenu($roleName); // Get the accessible menu for this role

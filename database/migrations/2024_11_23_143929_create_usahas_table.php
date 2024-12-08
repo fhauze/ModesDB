@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('usaha', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreign('jenis_id')->references('id')->on('jenis');
             $table->text('alamat');
             $table->string('teknologi');
             $table->string('pekerja');
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->string('social_media');
             $table->string('sosmed_accoutn');
             $table->string('website');
-            $table->unsignedBigInteger('jenis_id');
+            // $table->unsignedBigInteger('jenis_id');
             $table->unsignedBigInteger('org_id')->nullable();
             $table->unsignedBigInteger('provinsi_id');
             $table->unsignedBigInteger('kabkot_id');

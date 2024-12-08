@@ -7,13 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 class Distribusi extends Model
 {
     protected $fillable = [
-        'deskripsi',
-        'kategori_id',
         'usaha_id',
-        'jenis_distribusi',
-        'kabkot_id',
+        'jenis_id',
+        'kategori_id',
+        'deskripsi',
+        'jenis_distribusi', //local/inter
         'negara_id',
+        'provinsi_id',
+        'kabkot_id',
+        'tahun',
         'volume',
-        'stuan'
+        'satuan',
     ];
+
+    public function usaha(){
+        return $this->belongsTo(\App\Models\Usaha::class, 'usaha_id');
+    }
+    public function kategori(){
+        return $this->belongsTo(\App\Models\Kategori::class, 'kategori_id');
+    }
+    public function jenis(){
+        return $this->belongsTo(\App\Models\Jenis::class, 'jenis_id');
+    }
+
+    public function negara(){
+        return $this->belongSto(\App\Models\Negara::class, 'negara_id');
+    }
 }

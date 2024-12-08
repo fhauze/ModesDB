@@ -13,73 +13,113 @@
 @endsection
 @section('content')
 <div class="container-fluid">
-    <fieldset class="form-fieldset">
     <div class="d-flex justify-content-end mb-4">
-        <a class='btn border border-danger' href="{{route('adm.menu.create')}}"> <i class='fa fa-plus-circle'></i><span class="m-2">Tambah</span></a>
+        <a class='btn border border-danger' href="{{ route('adm.distribusi.mode', ['mode' => 'add']) }}"> 
+            <i class='fa fa-plus-circle'></i>
+            <span class="m-2">Tambah</span>
+        </a>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table id="example1" class="table table-bordered w-100">
-                    <head>
-                        <th>Menu Name</th>
-                        <th>Type</th>
-                        <th>Parent</th>
-                        <th>Route Name</th>
-                        <th></th>
-                    </head>
-                    <body>
-                        <?php $num =1; ?>
-                        @foreach($menus as $menu)
+        <div class="row">
+            <div class="col-md-12 p-2 ps-0 pr-1">
+                <fieldset class="row form-fieldset m-1">
+                    <legend>Filters</legend>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Jenis</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Kategori</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Tahun</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Produksi</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                
+                            </select>
+                        </div>
+                        <div class="parsley-select form-group col-2">
+                            <label for="type">Distribusi</label>
+                            <select class="form-select" name="jenis" id="jenis">
+                                <option value="" selected>Choose one</option>
+                                
+                            </select>
+                        </div>
+                    <!-- </div> -->
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pd-2">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead class="table-dark">
                             <tr>
-                                <td>{{$menu->name}}</td>
-                                <td>{{$menu->type}}</td>
-                                <td>{{$menu->parent_id ?? ''}}</td>
-                                <td>{{$menu->route_name ?? ''}}</td>
-                                <td class="text-end">
-                                    <a href="{{route('adm.menu.show',$menu->id)}}" style="margin-right: 10px;"><i class="fa fa-eye"></i> </a>
-                                    <a href="#" style="margin-right: 10px;" id="menu-btn-edit" data-id="{{$menu->id}}"><i class='fa fa-edit'></i> </a>
-                                    <a href="#" style="margin-right: 10px;" id="btn-menu-delete" data-id="{{$menu->id}}"><i class="fa fa-trash"> </i></a>
-                                </td>
+                                <th>#</th>
+                                <th>Nama Usaha</th>
+                                <th>Jenis Usaha</th>
+                                <th>Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Volume</th>
+                                <th>Tahun</th>
+                                <th>Tujuan</th>
+                                <th>Aksi</th>
                             </tr>
-                            <tr>
-                                <td colspan="5">
-                                    <table class="w-100 table">
-                                        <thead>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i =1;?>
-                                            @foreach($menu->subMenus as $sub)
-                                                <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{ $sub->name }}</td>
-                                                    <td>{{ $sub->type }}</td>
-                                                    <td>{{ $sub->route_name }}</td>
-                                                    <td class="text-start">
-                                                        {{-- <a href="" style="margin-right: 10px;"><i class="fa fa-eye"></i> </a>
-                                                        <a href="#" style="margin-right: 10px;"><i class='fa fa-edit'></i> </a>
-                                                        <a href="#" style="margin-right: 10px;" id="sub-menu-delete" data-id=""><i class="fa fa-trash"> </i></a> --}}
-                                                    </td>
-                                                </tr>
-                                                <?php $i++ ?>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        <?php $num++; ?>
-                        @endforeach
-                    </body>
-                </table>  
+                        </thead>
+                        <tbody>
+                            @forelse ($datas as $data)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $data->usaha->nama ?? ''}}</td>
+                                    <td>{{ $data->jenis->nama ?? ''}}</td>
+                                    <td>{{ $data->kategori->nama ?? ''}}</td>
+                                    <td>{{ $data->deskripsi ?? ''}}</td>
+                                    <td>{{ $data->volume ?? '-' }}</td>
+                                    <td>{{ $data->tahun ?? '-' }}</td>
+                                    <td>{{ $data->negara->nama ?? '-' }}</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="{{ route('adm.distribusi.mode', ['mode' => 'view']) }}?id={{$data->id}}" class="btn text-success btn-sm" title="Edit">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('adm.distribusi.mode', ['mode' => 'ubah']) }}?id={{$data->id}}" class="btn text-warning btn-sm" title="Edit">
+                                                <i class="fa f fa-edit"></i>
+                                            </a>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('adm.distribusi.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus usaha ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn text-danger btn-sm" title="Hapus">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data usaha.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    </fieldset>
 </div>
 <div class="modal fade" id="menuModalEdit" name="menuModalEdit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
@@ -155,6 +195,9 @@
         const btnModalEditSave = document.querySelector('.modal-edit-btn-save')
         document.querySelector('.p-name').appendChild(ename);
         document.querySelector('.p-type').appendChild(etype);
+
+        //select2
+        $('#jenis').select2({dropdownAutoWidth : true});
         
         document.addEventListener('click', function(event){
             let diss = event.target.closest('[data-dismiss="modal"]');
