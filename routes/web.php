@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('distribusi', App\Http\Controllers\DistribusiController::Class);
         Route::get('produksi/mode/{mode}', [App\Http\Controllers\ProduksiController::Class, 'mode'])->name('produksi.mode');
         Route::get('distribusi/mode/{mode}', [App\Http\Controllers\DistribusiController::Class, 'mode'])->name('distribusi.mode');
+        
         /** 
          * Permissioon
          * Roles dan Module

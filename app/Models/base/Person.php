@@ -36,4 +36,9 @@ class Person extends Model
     public function usaha(){
         return $this->hasMany(Usaha::class);
     }
+
+    public function profesi()
+    {
+        return $this->belongsToMany(\App\Models\Profesi::class, 'person_profesis', 'person_id', 'profesi_id');
+    }
 }
