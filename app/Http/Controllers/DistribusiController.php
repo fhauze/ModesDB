@@ -16,7 +16,7 @@ class DistribusiController extends Controller
         if($request->has('jenis')){
             $regex = "/[_\-\/\\\\]/";
             $search = preg_replace($regex,' ',$request->input('jenis'));
-            $jenis = Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
+            $jenis = \App\Models\Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
             if($jenis){
                 $datas->where('jenis_id', $jenis->id);
             }

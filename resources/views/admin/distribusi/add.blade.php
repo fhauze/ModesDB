@@ -5,7 +5,7 @@
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item"><a href="{{ route('adm.produksi.index') }}">Produksi</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('adm.produksi.index') }}">Distribusi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ ucfirst($mode) }} Data</li>
             </ol>
         </nav>

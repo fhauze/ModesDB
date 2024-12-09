@@ -4,7 +4,7 @@
     <div class="d-sm-flex justify-content-between">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item active" aria-current="page">Menu</li>
+                <li class="breadcrumb-item active" aria-current="page">Distribusi</li>
             </ol>
         </nav>
     </div>
@@ -72,10 +72,11 @@
                                 <th>Jenis Usaha</th>
                                 <th>Kategori</th>
                                 <th>Deskripsi</th>
+                                <th>Jenis Distribusi</th>
+                                <th>Negara</th>
+                                <th>Provinsi</th>
                                 <th>Volume</th>
-                                <th>Tahun</th>
-                                <th>Tujuan</th>
-                                <th>Aksi</th>
+                                <th>Satuan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +112,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Tidak ada data usaha.</td>
+                                    <td colspan="10" class="text-center">Tidak ada data usaha.</td>
                                 </tr>
                             @endforelse
                         </tbody>
