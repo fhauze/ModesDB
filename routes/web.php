@@ -27,8 +27,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('modules', App\Http\Controllers\ModuleController::Class);
         Route::resource('produksi', App\Http\Controllers\ProduksiController::Class);
         Route::resource('distribusi', App\Http\Controllers\DistribusiController::Class);
+        Route::resource('profesi', App\Http\Controllers\ProfesiController::Class);
         Route::get('produksi/mode/{mode}', [App\Http\Controllers\ProduksiController::Class, 'mode'])->name('produksi.mode');
         Route::get('distribusi/mode/{mode}', [App\Http\Controllers\DistribusiController::Class, 'mode'])->name('distribusi.mode');
+        Route::get('profesi/mode/{mode}', [App\Http\Controllers\ProfesiController::Class, 'mode'])->name('profesi.mode');
         
         /** 
          * Permissioon

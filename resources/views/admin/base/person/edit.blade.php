@@ -191,6 +191,24 @@
                     </div>
                 </div>
                 <div class="divider-text text-left "> Keahlian </div>
+                <div class="row row-sm mg-b-4 mb-4">
+                    <div class=" form-group" id="div-kelamin" aria-hidden="true">
+                        <label for="profesi">Profesi</label>
+                        <select id="profesi_id" name="profesi_id[]" class="form-control select2" multiple>
+                            @forelse($profesis as $profesi)
+                            <option value="{{$profesi->id ?? ''}}" 
+                            @if(in_array($profesi->id, old('profesi_id', $data->profesi->pluck('id')->toArray())))
+                                selected
+                            @endif
+                            >
+                            {{$profesi->nama}}</option>
+                            @empty
+                            <option></option>
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row row-sm mg-b-4">
                     <div class=" form-group" id="div-kelamin" aria-hidden="true">
                         <label for="sertifikasi">Sertifikasi</label>
@@ -290,6 +308,22 @@
         //     });
         //     return select;
         // }
+
+        const industri = document.querySelector('.select2');
+        $(industri).select2({
+            placeholder: 'Pilih..',
+            allowClear: true
+        });
+        $(industri).on('change', () => {
+            if (industri.value) {
+                industri.classList.remove('is-invalid');
+                industri.classList.add('is-valid');
+            } else {
+                industri.classList.remove('is-valid');
+                industri.classList.add('is-invalid');
+            }
+            checkValid();
+        });
     });
 </script>
 @endsection

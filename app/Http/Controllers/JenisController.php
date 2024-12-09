@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jenis;
+use App\Models\Industri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +23,8 @@ class JenisController extends Controller
      */
     public function create()
     {
-        return view('admin.jenis.add');
+        $industris = Industri::all();
+        return view('admin.jenis.add', compact('industris'));
     }
 
     /**

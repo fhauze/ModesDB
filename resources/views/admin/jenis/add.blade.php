@@ -37,6 +37,16 @@
                         <label for="deskripsi">Deskripsi</label>
                         <textarea name="deskripsi" class="form-control" required minlength="4">{{old('deskripsi')}}</textarea>
                     </div>
+                    <div class="parsley-select col-sm-8 form-group">
+                        <label for="deskripsi">Industri</label>
+                        <select id="industri_id" name="industri_id" class="form-control select2">
+                            @forelse($profesis as $profesi)
+                            <option value="{{$industri->id ?? ''}}" {{ old('industri_id') == $industri->id ? 'selected' : '' }}>{{$industri->nama}}</option>
+                            @empty
+                            <option></option>
+                            @endforelse
+                        </select>
+                    </div>
                 </div>
                 <hr/> 
                 <div class="justify-content-between">
@@ -66,7 +76,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById('formAdd');
         const btnSave = document.getElementById('btnSave');
-        let comps = document.querySelectorAll('.form-control');
+        let comps = document.querySelectorAll('.form-control[required]');
 
         btnSave.disabled = true;
         comps.forEach(comp => {
@@ -76,6 +86,20 @@
             });
         });
 
+        const industri = document.querySelector('.select2');
+        $(industri).select2({
+            placeholder: 'Pilih..'
+        });
+        $(industri).on('change', () => {
+            if (industri.value) {
+                industri.classList.remove('is-invalid');
+                industri.classList.add('is-valid');
+            } else {
+                industri.classList.remove('is-valid');
+                industri.classList.add('is-invalid');
+            }
+            checkValid();
+        });
         // validation
         function validateInput(comp) {
             if (comp.checkValidity()) {
