@@ -103,14 +103,14 @@ class MenuSeeder extends Seeder
             if ($menuData['name'] === 'setting') {
                 // Add submenus for Settings
                 $st = [
-                    ['name' => 'menu', 'display_name' => 'Pengaturan Menu', 'type' => 'link', 'route_name' => 'adm.menu.index'],
-                    ['name' => 'jenis', 'display_name' => 'Jenis', 'type' => 'link', 'route_name' => 'adm.jenis.index'],
-                    ['name' => 'kategori', 'display_name' => 'Kategori', 'type' => 'link', 'route_name' => 'adm.kategori.index'],
-                    ['name' => 'negara', 'display_name' => 'Negara', 'type' => 'link', 'route_name' => 'adm.negara.index'],
-                    ['name' => 'provinsi', 'display_name' => 'Provinsi', 'type' => 'link', 'route_name' => 'adm.provinsi.index'],
-                    ['name' => 'kabkota', 'display_name' => 'Kabupaten / Kota', 'type' => 'link', 'route_name' => 'adm.kabupaten.index'],
-                    ['name' => 'user_akses', 'display_name' => 'User & Hak Akses', 'type' => 'link', 'route_name' => 'adm.roles.index'],
-                    ['name' => 'module', 'display_name' => 'Daftar Module', 'type' => 'link', 'route_name' => 'adm.modules.index'],
+                    ['name' => 'menu', 'display_name' => 'Pengaturan Menu', 'type' => 'link', 'route_name' => 'adm/menu'],
+                    ['name' => 'jenis', 'display_name' => 'Jenis', 'type' => 'link', 'route_name' => 'adm/jenis'],
+                    ['name' => 'kategori', 'display_name' => 'Kategori', 'type' => 'link', 'route_name' => 'adm/kategori'],
+                    ['name' => 'negara', 'display_name' => 'Negara', 'type' => 'link', 'route_name' => 'adm/negara'],
+                    ['name' => 'provinsi', 'display_name' => 'Provinsi', 'type' => 'link', 'route_name' => 'adm/provinsi'],
+                    ['name' => 'kabkota', 'display_name' => 'Kabupaten / Kota', 'type' => 'link', 'route_name' => 'adm/kabupaten'],
+                    ['name' => 'user_akses', 'display_name' => 'User & Hak Akses', 'type' => 'link', 'route_name' => 'adm/roles'],
+                    ['name' => 'module', 'display_name' => 'Daftar Module', 'type' => 'link', 'route_name' => 'adm/modules'],
                 ];
                 foreach ($st as $s) {
                     SubMenu::create([

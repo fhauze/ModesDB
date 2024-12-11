@@ -50,8 +50,8 @@
                         isset($item['route']) 
                         ? (
                             str_contains(strtolower($items['label']), 'home') || str_contains(strtolower($items['label']), 'settings') 
-                            ? route($item['route']) 
-                            : route($item['route']) . '?jenis=' . urlencode($item['label'] ?? '')
+                            ? $item['route'] 
+                            : $item['route'] . '?jenis=' . urlencode($item['label'] ?? '')
                         ) 
                         : '#' 
                         }}" class="nav-link">
@@ -63,7 +63,7 @@
                         <ul class="nav nav-submenu">
                             @foreach ($item['subMenus'] as $subMenu)
                                 <li class="nav-item">
-                                    <a href="{{ route($subMenu['route'] ?? '#').'?jenis='.urlencode($subMenu['name'] ?? '') }}" class="nav-link">
+                                    <a href="{{ $subMenu['route'] ?? '#'.'?jenis='.urlencode($subMenu['name'] ?? '') }}" class="nav-link">
                                         <i data-feather="{{ $subMenu['icon'] ?? '' }}"></i>
                                         <span>{{ $subMenu['label'] ?? '' }}</span>
                                     </a>

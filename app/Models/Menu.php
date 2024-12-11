@@ -20,10 +20,19 @@ class Menu extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'menu_permission', 'menu_id', 'permission_id');
+        return $this->belongsToMany(Permission::class, 'menu_permission')
+                    ->withPivot('role_id')
+                    ->using(MenuPermission::class);
     }
     public function menuPermissions()
     {
         return $this->hasMany(MenuPermission::class, 'menu_id');
+    }
+    public function getPermissionsByRoleAndPermission($permissionId, $roleId)
+    {
+        return $this->permissions()
+                    ->wherePivot('permission_id', $permissionId) // Menambahkan kondisi untuk permission_id
+                    ->wherePivot('role_id', $roleId) // Menambahkan kondisi untuk role_id
+                    ->get();
     }
 }

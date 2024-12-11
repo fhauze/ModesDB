@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
         Route::post('permission/modules/{role_id}/{module_id}', [App\Http\Controllers\PermissionController::class, 'ModulePermissionUpdate'])->name('permission.module.update');
         // Route::get('permission/modules', [App\Http\Controllers\PermissionController::class, 'ModulePermissionIndex'])->name('permission.module.index');
-        
+        Route::post('permission/menu/{role_id}/{menu_id}', [App\Http\Controllers\PermissionController::class, 'MenuPermissionUpdate'])->name('permission.menu.update');
     });
 });
 

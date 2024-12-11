@@ -11,7 +11,7 @@ if (!function_exists('generateMenu')) {
     {
         $user = Auth::user();
         $userRoleIds = $user->roles->pluck('id');
-
+        
         $menus = Menu::whereNull('parent_id')
             ->whereIn('id', function ($query) use ($userRoleIds) {
                 $query->select('menu_id')
@@ -21,13 +21,13 @@ if (!function_exists('generateMenu')) {
             ->with('subMenus')
             ->orderBy('id')
             ->get();
-
+        
         $sidebarMenu = [];
 
         foreach ($menus as $menu) {
             $subMenuItems = $menu->subMenus->map(function ($subMenu) {
                 return [
-                    'route' => $subMenu->route_name ?? '/',
+                    'route' => isset($subMenu->route_name) ? url($subMenu->route_name) : '/',
                     'icon' => $subMenu->icon ?? '/',
                     'label' => $subMenu->display_name ?? '/',
                 ];
@@ -40,7 +40,7 @@ if (!function_exists('generateMenu')) {
                 'submenus' => $subMenuItems,
             ];
         }
-
+        
         return $sidebarMenu;
     }
 

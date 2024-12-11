@@ -168,4 +168,49 @@ class UsahaController extends Controller
         $lastTenYears = range($currentYear, $currentYear - 9);
         return $lastTenYears;
     }
+
+    // public function 
+    public function getSidebarOptions()
+    {
+        // Kategori Usaha
+        $categories = Usaha::jenis();
+        // Jumlah Usaha Berdasarkan Wilayah
+        $usahaByProvinsi = Usaha::select('provinsi_id', \DB::raw('count(*) as total'))
+            ->groupBy('provinsi_id')
+            ->with('provinsi')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'provinsi' => $item->provinsi->nama ?? 'Unknown',
+                    'total' => $item->total,
+                ];
+            });
+        // Jumlah Usaha Berdasarkan Tahun
+        $usahaByYear = Usaha::select('tahun_berdiri', \DB::raw('count(*) as total'))
+            ->groupBy('tahun_berdiri')
+            ->orderBy('tahun_berdiri', 'asc')
+            ->get();
+
+        // Statistik Total Usaha
+        $totalUsaha = Usaha::count();
+        // Statistik Pertumbuhan Usaha
+        $usahaGrowth = $usahaByYear->map(function ($item, $index) use ($usahaByYear) {
+            $previous = $usahaByYear[$index - 1]->total ?? 0;
+            return [
+                'tahun' => $item->tahun_berdiri,
+                'total' => $item->total,
+                'growth' => $previous > 0 ? round((($item->total - $previous) / $previous) * 100, 2) : 0,
+            ];
+        });
+        // Gabungkan Semua Data
+        $datas = (object) [
+            'categories' => $categories,
+            'usaha_by_provinsi' => $usahaByProvinsi,
+            'usaha_by_year' => $usahaByYear,
+            'total_usaha' => $totalUsaha,
+            'usaha_growth' => $usahaGrowth,
+        ];
+        return $datas;
+    }
+
 }

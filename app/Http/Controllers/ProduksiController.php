@@ -7,6 +7,7 @@ use App\Models\Usaha;
 use App\Models\Produksi;
 use App\Models\Jenis;
 use App\Models\Kategori;
+use App\Models\Distribusi;
 use Exception;
 
 class ProduksiController extends Controller
@@ -26,8 +27,16 @@ class ProduksiController extends Controller
         }
         
         $datas = $datas->get();
+        $jenis = Jenis::all();
+        $kategori = Kategori::all();
+        $tahuns = (new Distribusi)->tahuns();
         
-        return view('admin.produksi.index', ['datas' => $datas]);
+        return view('admin.produksi.index', [
+            'datas' => $datas, 
+            'tahuns' => $tahuns,
+            'kategori' => $kategori,
+            'jenis' => $jenis,
+        ]);
     }
 
     public function mode(Request $request, string $mode)
@@ -133,6 +142,64 @@ class ProduksiController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete data. Please try again.'], 500);
         }
+    }
+
+    public function getProduksiOptions()
+    {
+        $kategoriProduksi = Produksi::with('kategori')
+            ->select('kategori_id')
+            ->distinct()
+            ->get()
+            ->map(function ($item) {
+                return $item->kategori->nama ?? 'Unknown';
+            });
+
+        $produksiByKategori = Produksi::select('kategori_id', \DB::raw('SUM(vol_produksi) as total_produksi'))
+            ->groupBy('kategori_id')
+            ->with('kategori')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'kategori' => $item->kategori->nama ?? 'Unknown',
+                    'total_produksi' => $item->total_produksi,
+                ];
+            });
+
+        $produksiByWilayah = Produksi::select('usaha.provinsi_id', \DB::raw('SUM(produksi.vol_produksi) as total_produksi'))
+            ->join('usaha', 'produksi.usaha_id', '=', 'usaha.id')
+            ->groupBy('usaha.provinsi_id')
+            ->with('usaha.provinsi')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'provinsi' => $item->usaha->provinsi->nama ?? 'Unknown',
+                    'total_produksi' => $item->total_produksi,
+                ];
+            });
+
+        $produksiByYear = Produksi::select('tahun', \DB::raw('SUM(vol_produksi) as total_produksi'))
+            ->groupBy('tahun')
+            ->orderBy('tahun', 'asc')
+            ->get();
+
+        $statistikProduksiByKategori = Produksi::select('kategori_id', \DB::raw('SUM(vol_produksi) as total_produksi'))
+            ->groupBy('kategori_id')
+            ->with('kategori')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'kategori' => $item->kategori->nama ?? 'Unknown',
+                    'total_produksi' => $item->total_produksi,
+                ];
+            }); 
+        $datas = (object)[
+            'kategori_produksi' => $kategoriProduksi,
+            'produksi_by_kategori' => $produksiByKategori,
+            'produksi_by_wilayah' => $produksiByWilayah,
+            'produksi_by_year' => $produksiByYear,
+            'statistik_produksi_by_kategori' => $statistikProduksiByKategori,
+        ];
+        return $datas;
     }
 
 }

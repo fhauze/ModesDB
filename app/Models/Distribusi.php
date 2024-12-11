@@ -33,4 +33,11 @@ class Distribusi extends Model
     public function negara(){
         return $this->belongSto(\App\Models\Negara::class, 'negara_id');
     }
+
+    public function tahuns(){
+        return $this->select('tahun')
+            ->distinct()
+            ->get()
+            ->toArray();
+    }
 }

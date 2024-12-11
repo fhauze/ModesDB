@@ -166,7 +166,63 @@ class PermissionController extends Controller
         }
     }
 
-    public function ModulePermissionDelete(\App\Models\ModulePermssion $modulePermission){
+    public function MenuPermissionUpdate(Request $request, $roleID, $menuID)
+    {
+        $request->validate([
+            'permissionType' => 'required|string|in:create,read,edit,delete',
+            'isChecked' => 'required|boolean',
+        ]);
 
+        // Temukan role berdasarkan ID
+        $role = Role::find($roleID);
+        if (!$role) {
+            return response()->json(['success' => false, 'message' => 'Role not found.'], 404);
+        }
+
+        $permissionID = Permission::where('name',$request->permissionType)->first();
+        
+        $exists = \App\Models\MenuPermission::where('role_id', $roleID)
+            ->where('permission_id', $permissionID->id)
+            ->where('menu_id', $menuID)
+            ->first();
+        
+        if (!$exists) {
+            $process = \App\Models\MenuPermission::create([
+                'menu_id' => $menuID,
+                'permission_id' => $permissionID->id,
+                'role_id' => $roleID,
+            ]);
+            if($process){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Permission ccrceata successfully.',
+                ]);
+            }
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating permission.']);
+        }else{
+            $exists->delete();
+        }
+
+        // Perbarui permission
+        try {
+            if ($request->isChecked) {
+                $role->givePermissionTo($permissionID);
+            } else {
+                $role->revokePermissionTo($permissionID);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Permission updated successfully.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating permission.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

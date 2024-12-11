@@ -43,7 +43,7 @@ class RoleController extends Controller
                 foreach (['create', 'read', 'edit', 'delete'] as $permissionType) {
                     $permission = $data->permissions->where('name', $permissionType)->first();
                     $permissionId = $permission ? $permission->id : null;
-
+                    
                     if ($permissionId) {
                         $modulePermissions = $data->getPermissionsByRoleAndPermission($permissionId, $role->id);
                         if ($modulePermissions->isNotEmpty()) {
@@ -54,9 +54,30 @@ class RoleController extends Controller
             }
         }
 
+        // menu Roles
+        $menus = \App\Models\Menu::with('permissions')->get();
+        $menuRoles = \App\Models\Role::all();
+        $menuArray = [];
+        foreach ($menuRoles as $role) {
+            foreach ($menus as $menu) {
+                foreach (['create', 'read', 'edit', 'delete'] as $permissionType) {
+                    $permission = $menu->permissions->where('name', $permissionType)->first();
+                    $permissionId = $permission ? $permission->id : null;
+
+                    if ($permissionId) {
+                        $menuPermissions = $menu->getPermissionsByRoleAndPermission($permissionId, $role->id);
+                        if ($menuPermissions->isNotEmpty()) {
+                            $menuArray[$role->id][$menu->id][] = $permissionType;
+                        }
+                    }
+                }
+            }
+        }
+        // dd([$menus, $menuRoles, $menuArray[1][5]]);
         return view('admin.roles.index')->with([
             'users' => $users, 'roles' => $roles, 'permissions' => $permissions,
-            'datas' => $datas, 'roles' => $moduleRoles, 'rolesArray'=> $rolesArray
+            'datas' => $datas, 'roles' => $moduleRoles, 'rolesArray'=> $rolesArray,
+            'menus' => $menus, 'roles' => $menuRoles, 'menuArray'=> $menuArray
         ]);
     }
 

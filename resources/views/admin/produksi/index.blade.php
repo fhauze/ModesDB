@@ -28,35 +28,27 @@
                             <label for="type">Jenis</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                               
+                                @foreach($jenis as $j)
+                                    <option value="{{$j->id}}" selected>{{$j->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Kategori</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                
+                                @foreach($kategori as $c)  
+                                    <option value="{{$c->id}}" selected>{{$c->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Tahun</label>
                             <select class="form-select" name="jenis" id="jenis">
                                 <option value="" selected>Choose one</option>
-                                
-                            </select>
-                        </div>
-                        <div class="parsley-select form-group col-2">
-                            <label for="type">Produksi</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
-                            </select>
-                        </div>
-                        <div class="parsley-select form-group col-2">
-                            <label for="type">Distribusi</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
+                                @foreach($tahuns as $tahun)
+                                    <option value="{{$tahun}}" selected>{{$tahun}}</option>
+                                @endforeach
                             </select>
                         </div>
                     <!-- </div> -->
@@ -78,12 +70,14 @@
                                 <th>Bahan Baku</th>
                                 <th>Bahan Impor (%)</th>
                                 <th>Bahan Lokal (%)</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($datas as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $data->usaha->nama ?? ''}}</td>
                                     <td>{{ $data->jenis->nama ?? ''}}</td>
                                     <td>{{ $data->kategori->nama ?? ''}}</td>
                                     <td>{{ $data->pekerja ?? ''}}</td>
