@@ -22,43 +22,45 @@
     <div class="row">
         <div class="row">
             <div class="col-md-12 p-2 ps-0 pr-1">
+                <form action="{{route('adm.distribusi.index')}}" method="GET" id="filterForm">
                 <fieldset class="row form-fieldset m-1">
                     <legend>Filters</legend>
-                        <div class="parsley-select form-group col-2">
+                    <div class="parsley-select form-group col-2">
                             <label for="type">Jenis</label>
-                            <select class="form-select" name="jenis" id="jenis">
+                            <select class="form-select select2" name="jenis" id="jenis">
+                                <option value="">Choose one</option>
+                                @foreach($jenis as $j)
+                                    <option value="{{$j->id}}" 
+                                        @if(null != $selections && array_key_exists('jenis', $selections) && $j->id == $selections['jenis']['id']) selected @endif
+                                    >{{$j->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Kategori</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
+                            <select class="form-select select2" name="kategori" id="kategori">
+                                <option value="">Choose one</option>
+                                @foreach($kategori as $c)  
+                                    <option value="{{$c->id}}"
+                                        @if(null != $selections && array_key_exists('kategori', $selections) && $c->id == $selections['kategori']['id']) selected @endif
+                                    >{{$c->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="parsley-select form-group col-2">
                             <label for="type">Tahun</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
-                            </select>
-                        </div>
-                        <div class="parsley-select form-group col-2">
-                            <label for="type">Produksi</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
-                            </select>
-                        </div>
-                        <div class="parsley-select form-group col-2">
-                            <label for="type">Distribusi</label>
-                            <select class="form-select" name="jenis" id="jenis">
-                                <option value="" selected>Choose one</option>
-                                
+                            <select class="form-select select2" name="tahun" id="tahun">
+                                <option value="">Choose one</option>
+                                @foreach($tahuns as $tahun)
+                                    <option value="{{$tahun['tahun']}}"
+                                        @if(null != $selections && array_key_exists('tahun',$selections) && $tahun['tahun'] == $selections['tahun']) selected @endif
+                                    >{{$tahun['tahun']}}</option>
+                                @endforeach
                             </select>
                         </div>
                     <!-- </div> -->
                 </fieldset>
+                </form>
             </div>
         </div>
         <div class="row">
@@ -196,9 +198,11 @@
         const btnModalEditSave = document.querySelector('.modal-edit-btn-save')
         document.querySelector('.p-name').appendChild(ename);
         document.querySelector('.p-type').appendChild(etype);
-
-        //select2
-        $('#jenis').select2({dropdownAutoWidth : true});
+        document.querySelectorAll('.select2').forEach(select2 => {
+            $(select2).select2({
+                placeholder: 'Pilih..', // Correct option key for placeholder
+            });
+        });
         
         document.addEventListener('click', function(event){
             let diss = event.target.closest('[data-dismiss="modal"]');
@@ -323,5 +327,12 @@
             return element;
         }
     })
+</script>
+<script>
+    $('.select2').on('change', function() {
+        var selectedValue = $(this).val();
+        console.log("Nilai yang dipilih: " + selectedValue);
+        $('#filterForm').submit();
+    });
 </script>
 @endsection

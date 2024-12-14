@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jenis;
+use App\Models\Kategori;
 use App\Models\Distribusi;
 use Illuminate\Http\Request;
 
@@ -12,17 +14,47 @@ class DistribusiController extends Controller
      */
     public function index(Request $request)
     {
+        $selections = null;
         $datas = \App\Models\Distribusi::query();
         if($request->has('jenis')){
             $regex = "/[_\-\/\\\\]/";
             $search = preg_replace($regex,' ',$request->input('jenis'));
-            $jenis = \App\Models\Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
+            if(!$search){
+                $search =0;
+            }
+            $jenis = Jenis::whereRaw('lower(nama) like ? OR id=?', ['%'. strtolower($search) . '%',$search])->first();
+            $datas->where('jenis_id', $jenis->id ?? 0);
             if($jenis){
-                $datas->where('jenis_id', $jenis->id);
+                $selections['jenis'] = $jenis->toArray();
             }
         }
+
+        if($request->has('kategori')){
+            $regex = "/[_\-\/\\\\]/";
+            $search = preg_replace($regex,' ',$request->input('kategori'));
+            if(!$search){
+                $search =0;
+            }
+
+            $kategori = Kategori::whereRaw('lower(nama) like ? OR id=?', ['%'. strtolower($search) . '%',$search])->first();
+            $datas->where('kategory_id', $kategori->id ?? 0);
+            if($kategori){
+                $selections['kategori'] = $kategori->toArray();
+            }
+        }
+        
+        if($request->has('tahun')){
+            $datas->where('tahun', $request->input('tahun') ?? 0);
+            $selections['tahun'] = $request->input('tahun');
+        }
         $datas = $datas->get();
-        return view('admin.distribusi.index', ['datas' => $datas]);
+        return view('admin.distribusi.index', [
+            'datas' => $datas,
+            'jenis' => Jenis::all(),
+            'kategori' => Kategori::all(),
+            'tahuns' => (new Distribusi)->tahuns(),
+            'selections' => $selections
+        ]);
     }
 
     /**

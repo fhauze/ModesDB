@@ -104,7 +104,7 @@
         <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-            <li class="breadcrumb-item"><a href="#">Organisai</a></li>
+            <li class="breadcrumb-item"><a href="{{route('adm.home')}}">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tambah Data</li>
             </ol>
         </nav>
