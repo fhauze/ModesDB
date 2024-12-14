@@ -23,6 +23,8 @@ if (!function_exists('generateMenu')) {
             ->get();
         
         $sidebarMenu = [];
+        $homeMenu = null;
+        $settingsMenu = null;
 
         foreach ($menus as $menu) {
             $subMenuItems = $menu->subMenus->map(function ($subMenu) {
@@ -33,16 +35,32 @@ if (!function_exists('generateMenu')) {
                 ];
             })->toArray();
 
-            // Masukkan menu dan submenu ke dalam sidebar menu
-            $sidebarMenu[] = [
+            $currentMenu = [
                 'label' => $menu->display_name,
                 'icon' => $menu->icon ?? '/',
                 'submenus' => $subMenuItems,
             ];
+            if (strtolower($menu->display_name) === 'home') {
+                $homeMenu = $currentMenu;
+            } elseif (strtolower($menu->display_name) === 'settings') {
+                $settingsMenu = $currentMenu;
+            } else {
+                $sidebarMenu[] = $currentMenu;
+            }
         }
         
-        return $sidebarMenu;
+    $orderedMenu = [];
+    if ($homeMenu) {
+        $orderedMenu[] = $homeMenu;
     }
+    $orderedMenu = array_merge($orderedMenu, $sidebarMenu);
+    if ($settingsMenu) {
+        $orderedMenu[] = $settingsMenu;
+    }
+
+    return $orderedMenu;
+}
+
 
 
 

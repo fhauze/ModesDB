@@ -107,8 +107,11 @@
                     <label for="sub_name">Display Name</label>
                 </div>
                 <div class="col-sm-12 form-group a-p-type">
-                    <label for="sub_name">Type</label>
+                    <label for="tipe">Type</label>
                 </div>
+                {{-- <div class="col-sm-12 form-group a-p-jenis">
+                    <label for="Jenis">Jenis Menu</label>
+                </div> --}}
                 <div class="parsley-select col-sm-12 form-group a-p-parent">
                     <label for="parent">Parent menu</label>
                     <select class="form-control" name="parent_id" id="parent_id" disabled>
@@ -161,6 +164,9 @@
                 <div class="col-sm-12 form-group p-type">
                     <label for="sub_name">Type</label>
                 </div>
+                {{-- <div class="col-sm-12 form-group p-jenis">
+                    <label for="Jenis">Jenis Menu</label>
+                </div> --}}
                 <div class="parsley-select col-sm-12 form-group p-parent">
                     <label for="parent">Parent menu</label>
                     <select class="form-control" name="e-parent_id" id="e-parent_id" disabled>
@@ -230,12 +236,14 @@
         const itype = createDropdown("sb-type",[{id:'link', name:'Link'}, {id:'dropdown', name:'Dropdown'}]);
         let dataParent = @json($parents);
         const iparent = document.querySelector('#parent_id');
-
+        // const iJenis = createDropdown('sb-jenis', @json($drops));
+        
         document.querySelector('.a-p-name').appendChild(iname);
         document.querySelector('.a-p-disp_name').appendChild(idisp_name);
         document.querySelector('.a-p-type').appendChild(itype);
         document.querySelector('.a-p-parent').appendChild(iparent);
         document.querySelector('.a-p-route').appendChild(iroute)
+        // document.querySelector('.p-jenis').appendChild(iJenis)
 
         // Edit
         const ename = createEl('input', {class:'form-control', id:'e-name', name:'e-name', required:true});
@@ -248,6 +256,7 @@
         document.querySelector('.p-disp_name').appendChild(edisp_name);
         document.querySelector('.p-type').appendChild(etype);
         document.querySelector('.p-parent').appendChild(eparent);
+        document.querySelector('.p-route').appendChild(eroute)
         document.querySelector('.p-route').appendChild(eroute)
 
         btnAdd.addEventListener('click', () => {

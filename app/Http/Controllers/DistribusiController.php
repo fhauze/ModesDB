@@ -60,11 +60,12 @@ class DistribusiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+     * Store a 
+     * newly created 
+     * resource in storage.
+    */
     public function store(Request $request)
     {
-        // dd($request->all());
         try{
             $validated = $request->validate([
                 'usaha_id' => 'required|string',

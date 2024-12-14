@@ -40,4 +40,11 @@ class Produksi extends Model
     {
         return $this->belongsTo(\App\Models\base\Person::class);
     }
+
+    public function tahuns(){
+        return $this->select('tahun')
+            ->distinct()
+            ->get()
+            ->toArray();
+    }
 }

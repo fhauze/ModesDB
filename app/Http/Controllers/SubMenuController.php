@@ -35,7 +35,7 @@ class SubMenuController extends Controller
             'name' => 'required|unique:sub_menus',
             'display_name' => 'required',
             'type' => 'required',
-            'menu_id' =>'required',
+            // 'menu_id' =>'required',
             'route_name' => 'required'
         ]);
         if($validator->fails()){
@@ -82,7 +82,7 @@ class SubMenuController extends Controller
             'name' => 'required',
             'display_name' =>'required',
             'type' => 'required',
-            'menu_id' =>'required',
+            // 'menu_id' =>'required',
             'route_name' => 'required'
         ]);
         

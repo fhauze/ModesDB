@@ -51,7 +51,7 @@
                         ? (
                             str_contains(strtolower($items['label']), 'home') || str_contains(strtolower($items['label']), 'settings') 
                             ? $item['route'] 
-                            : $item['route'] . '?jenis=' . urlencode($item['label'] ?? '')
+                            : $item['route'] {{-- . '?jenis=' . urlencode($item['label'] ?? '') --}}
                         ) 
                         : '#' 
                         }}" class="nav-link">

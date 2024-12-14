@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('display_name');
             $table->string('type');
             $table->string('route_name')->nullable();
-            $table->foreignId('menu_id')->constrained('menus');  // Foreign key to menus table
+            // $table->string('jenis_id')->nullable();
+            $table->foreignId('menu_id')->constrained('menus');
             $table->timestamps();
         });
     }

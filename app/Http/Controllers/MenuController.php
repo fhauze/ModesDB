@@ -75,8 +75,12 @@ class MenuController extends Controller
         $types =[['name' => 'Dropdown', 'value' => 'dropdown'], ['name' => 'Link', 'value' => 'link']];
         $data = Menu::find($id);
         $parents = Menu::all();
+        $jenisMenu = \App\Models\Jenis::select('id', 'nama as name')->get()->pluck('name', 'id')->toArray();
+        $drops = collect($jenisMenu)->map(function($name, $id) {
+            return ['id' => $id, 'name' => $name];
+        })->values()->toArray();
 
-        return view ('admin.menu.show', compact('data','types','parents'));
+        return view ('admin.menu.show', compact('data','types','parents', 'drops'));
     }
 
     /**

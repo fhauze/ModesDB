@@ -14,28 +14,51 @@ class ProduksiController extends Controller
 {
     public function index(Request $request)
     {
+        $selections = null;
         $datas = \App\Models\Produksi::query();
         if($request->has('jenis')){
             $regex = "/[_\-\/\\\\]/";
             $search = preg_replace($regex,' ',$request->input('jenis'));
-            
-            $jenis = Jenis::whereRaw('lower(nama) like ?', ['%'. strtolower($search) . '%'])->first();
-            
+            if(!$search){
+                $search =0;
+            }
+            $jenis = Jenis::whereRaw('lower(nama) like ? OR id=?', ['%'. strtolower($search) . '%',$search])->first();
+            $datas->where('jenis_id', $jenis->id ?? 0);
             if($jenis){
-                $datas->where('jenis_id', $jenis->id);
+                $selections['jenis'] = $jenis->toArray();
+            }
+        }
+
+        if($request->has('kategori')){
+            $regex = "/[_\-\/\\\\]/";
+            $search = preg_replace($regex,' ',$request->input('kategori'));
+            if(!$search){
+                $search =0;
+            }
+
+            $kategori = Kategori::whereRaw('lower(nama) like ? OR id=?', ['%'. strtolower($search) . '%',$search])->first();
+            $datas->where('kategori_id', $kategori->id ?? 0);
+            if($kategori){
+                $selections['kategori'] = $kategori->toArray();
             }
         }
         
+        if($request->has('tahun')){
+            $datas->where('tahun', $request->input('tahun') ?? 0);
+            $selections['tahun'] = $request->input('tahun');
+        }
+
         $datas = $datas->get();
         $jenis = Jenis::all();
         $kategori = Kategori::all();
-        $tahuns = (new Distribusi)->tahuns();
+        $tahuns = (new Produksi)->tahuns();
         
         return view('admin.produksi.index', [
             'datas' => $datas, 
             'tahuns' => $tahuns,
             'kategori' => $kategori,
             'jenis' => $jenis,
+            'selections' => $selections
         ]);
     }
 
